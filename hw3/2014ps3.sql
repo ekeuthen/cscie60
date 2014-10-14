@@ -51,15 +51,17 @@ DROP sequence seqorder;
 -- ******************************************************
 
 CREATE table tbcustomer (
-        customerid      char(4)                 null
-        customername    varchar2(40)            null
-        customeraddress varchar2(50)            null
-        customercity    varchar2(30)            null
-        customerstate   char(2)                 null
-        customerzip     varchar2(10)            null
-        customercontact varchar2(30)            null
-        customerphone   varchar2(12)            null
-        customeremail   varchar2(50)            null
+        customerid      char(4)                 not null
+                constraint rg_customerid check 
+                        (customerid between '1000' and '4999'),
+        customername    varchar2(40)            not null,
+        customeraddress varchar2(50)            null,
+        customercity    varchar2(30)            null,
+        customerstate   char(2)                 null,
+        customerzip     varchar2(10)            null,
+        customercontact varchar2(30)            null,
+        customerphone   varchar2(20)            null,
+        customeremail   varchar2(50)            null,
 );
 
 

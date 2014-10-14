@@ -11,9 +11,9 @@
 --
 -- Author:  Maria R. Garcia Altobello
 --
--- Student:  Emily Keuthen   
+-- Student:  Emiliy Keuthen
 --
--- Date:   October, 2014
+-- Date:   October 13, 2014
 --
 -- ******************************************************
 
@@ -27,7 +27,15 @@ spool 2014ps3.lst
 -- ******************************************************
 --    DROP TABLES
 -- Note:  Issue the appropiate commands to drop tables
+-- EK: Drop children first; purge avoids recycle bin
 -- ******************************************************
+
+DROP table tborderitem purge;
+DROP table tborder purge;
+DROP table tbitem purge;
+DROP table tbproduct purge;
+DROP table tbvendor purge;
+DROP table tbcustomer purge; 
 
 
 -- ******************************************************
@@ -35,12 +43,12 @@ spool 2014ps3.lst
 -- Note:  Issue the appropiate commands to drop sequences
 -- ******************************************************
 
+DROP sequence seqorder;
 
 
 -- ******************************************************
 --    CREATE TABLES
 -- ******************************************************
-
 
 CREATE table tbcustomer (
         customerid      char(4)                 null

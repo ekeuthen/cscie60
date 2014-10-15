@@ -54,7 +54,7 @@ CREATE table tbcustomer (
         customerid      char(4)                 not null
                 constraint rg_customerid check 
                         (customerid between '1000' and '4999')
-                constraint pk_customerid primary key,
+                constraint pk_customer primary key,
         customername    varchar2(40)            not null,
         customeraddress varchar2(50)            null,
         customercity    varchar2(30)            null,
@@ -62,26 +62,28 @@ CREATE table tbcustomer (
         customerzip     varchar2(10)            null,
         customercontact varchar2(30)            null,
         customerphone   varchar2(20)            null,
-        customeremail   varchar2(50)            null,
+        customeremail   varchar2(50)            null
 );
 
 
 CREATE table tbitem (
         productid       char(4)                         not null
-                constraint fk_productid_tbitem references tbproduct (productid) on delete cascade,
+                constraint fk_productid_tbitem references tbproduct (productid),
         vendorid        char(4)                         not null
-                constraint fk_vendorid_tbitem references tbvendor (vendorid) on delete cascade,
+                constraint fk_vendorid_tbitem references tbvendor (vendorid),
         itemprice       number(10,2)    default 0.00    null
                 constraint rg_itemprice check (itemprice > 0),
-        qoh             number(8,0)     default 0       not null,
-                constraint pk_tbtask primary key (productid, vendorid)
+        qoh             number(8,0)     default 0       not null
+                constraint pk_task primary key (productid, vendorid)
 );
 
 
 CREATE table tborder (
-        orderno         number(11,0)            null
-        orderdate       date                    null
-        customerid      char(4)                 null
+        orderno         number(11,0)            not null
+                constraint pk_order primary key,
+        orderdate       date    default SYSDATE not null,
+        customerid      char(4)                 not null
+                constraint fk_customerid_tborder references tbcustomer (customerid) on delete cascade
 );
 
 
@@ -117,6 +119,7 @@ CREATE table tbvendor (
 -- ******************************************************
 
 CREATE sequence seqorder;
+
     
     
 -- ******************************************************

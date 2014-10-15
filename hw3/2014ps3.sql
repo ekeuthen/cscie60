@@ -88,28 +88,35 @@ CREATE table tborder (
 
 
 CREATE table tborderitem (
-        orderno         number(11,0)            null
-        orderitemno     char(2)                 null
-        productid       char(3)                 null
-        vendorid        char(4)                 null
-        quantity        number(4,0)             null
-        itemprice       number(10,2)            null
+        orderno         number(11,0)            not null
+                constraint fk_orderno_tbborderitem refereces tborder (orderno) on delete cascade,
+        orderitemno     char(2)                 not null,
+        productid       char(3)                 null,
+        vendorid        char(4)                 null,
+        quantity        number(4,0) default 0   not null,
+        itemprice       number(10,2)            null,
+                constraint pk_orderitem primary key (orderno, orderitemno),
+                constraint fk_productid_vendorid_tborderitem foreign key (productid, vendorid) references tbitem (productid, vendorid) on delete cascade
 );
 
 
 CREATE table tbproduct (
-        productid       char(3)                 null
-        productname     varchar2(30)            null
-        budgetsales     number(4,0)             null
+        productid       char(3)                         not null
+                constraint pk_product primary key
+                constraint rg_productid check (productid between '100' and '999'),
+        productname     varchar2(30)                    not null,
+        budgetsales     number(4,0)     default 0       null
 );
 
 
 CREATE table tbvendor (
-        vendorid        char(4)                 null
-        vendorname      varchar2(25)            null
-        vendoraddress   varchar2(50)            null
-        vendorcity      varchar2(30)            null
-        vendorstate     char(2)                 null
+        vendorid        char(4)                 not null
+                constraint pk_vendor primary key
+                constraint rg_vendorid check (vendorid between '5000' and '9999'),
+        vendorname      varchar2(25)            not null,
+        vendoraddress   varchar2(50)            null,
+        vendorcity      varchar2(30)            null,
+        vendorstate     char(2)                 null,
         vendorzip       varchar2(10)            null
 );
 

@@ -11,7 +11,7 @@
 --
 -- Author:  Maria R. Garcia Altobello
 --
--- Student:  Emiliy Keuthen
+-- Student:  Emily Keuthen
 --
 -- Date:   October 13, 2014
 --
@@ -73,7 +73,7 @@ CREATE table tbitem (
                 constraint fk_vendorid_tbitem references tbvendor (vendorid),
         itemprice       number(10,2)    default 0.00    null
                 constraint rg_itemprice check (itemprice > 0),
-        qoh             number(8,0)     default 0       not null
+        qoh             number(8,0)     default 0       not null,
                 constraint pk_task primary key (productid, vendorid)
 );
 
@@ -89,14 +89,14 @@ CREATE table tborder (
 
 CREATE table tborderitem (
         orderno         number(11,0)            not null
-                constraint fk_orderno_tbborderitem refereces tborder (orderno) on delete cascade,
+                constraint fk_orderno_tbborderitem references tborder (orderno) on delete cascade,
         orderitemno     char(2)                 not null,
         productid       char(3)                 null,
         vendorid        char(4)                 null,
         quantity        number(4,0) default 0   not null,
         itemprice       number(10,2)            null,
                 constraint pk_orderitem primary key (orderno, orderitemno),
-                constraint fk_productid_vendorid_tborderitem foreign key (productid, vendorid) references tbitem (productid, vendorid) on delete cascade
+                constraint fk_prodid_vendid_bitem foreign key (productid, vendorid) references tbitem (productid, vendorid) on delete cascade
 );
 
 
@@ -125,7 +125,9 @@ CREATE table tbvendor (
 --    CREATE SEQUENCES
 -- ******************************************************
 
-CREATE sequence seqorder;
+CREATE sequence seqorder
+        increment by 1
+        start with 1;
 
     
     

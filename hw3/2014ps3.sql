@@ -53,7 +53,8 @@ DROP sequence seqorder;
 CREATE table tbcustomer (
         customerid      char(4)                 not null
                 constraint rg_customerid check 
-                        (customerid between '1000' and '4999'),
+                        (customerid between '1000' and '4999')
+                constraint pk_customerid primary key,
         customername    varchar2(40)            not null,
         customeraddress varchar2(50)            null,
         customercity    varchar2(30)            null,
@@ -66,10 +67,14 @@ CREATE table tbcustomer (
 
 
 CREATE table tbitem (
-        productid       char(4)                 null
-        vendorid        char(4)                 null
-        itemprice       number(10,2)            null
-        qoh             number(8,0)             null
+        productid       char(4)                         not null
+                constraint fk_productid_tbitem references tbproduct (productid) on delete cascade,
+        vendorid        char(4)                         not null
+                constraint fk_vendorid_tbitem references tbvendor (vendorid) on delete cascade,
+        itemprice       number(10,2)    default 0.00    null
+                constraint rg_itemprice check (itemprice > 0),
+        qoh             number(8,0)     default 0       not null,
+                constraint pk_tbtask primary key (productid, vendorid)
 );
 
 

@@ -66,6 +66,27 @@ CREATE table tbcustomer (
 );
 
 
+CREATE table tbvendor (
+        vendorid        char(4)                 not null
+                constraint pk_vendor primary key
+                constraint rg_vendorid check (vendorid between '5000' and '9999'),
+        vendorname      varchar2(25)            not null,
+        vendoraddress   varchar2(50)            null,
+        vendorcity      varchar2(30)            null,
+        vendorstate     char(2)                 null,
+        vendorzip       varchar2(10)            null
+);
+
+
+CREATE table tbproduct (
+        productid       char(3)                         not null
+                constraint pk_product primary key
+                constraint rg_productid check (productid between '100' and '999'),
+        productname     varchar2(30)                    not null,
+        budgetsales     number(4,0)     default 0       null
+);
+
+
 CREATE table tbitem (
         productid       char(4)                         not null
                 constraint fk_productid_tbitem references tbproduct (productid),
@@ -97,27 +118,6 @@ CREATE table tborderitem (
         itemprice       number(10,2)            null,
                 constraint pk_orderitem primary key (orderno, orderitemno),
                 constraint fk_prodid_vendid_bitem foreign key (productid, vendorid) references tbitem (productid, vendorid) on delete cascade
-);
-
-
-CREATE table tbproduct (
-        productid       char(3)                         not null
-                constraint pk_product primary key
-                constraint rg_productid check (productid between '100' and '999'),
-        productname     varchar2(30)                    not null,
-        budgetsales     number(4,0)     default 0       null
-);
-
-
-CREATE table tbvendor (
-        vendorid        char(4)                 not null
-                constraint pk_vendor primary key
-                constraint rg_vendorid check (vendorid between '5000' and '9999'),
-        vendorname      varchar2(25)            not null,
-        vendoraddress   varchar2(50)            null,
-        vendorcity      varchar2(30)            null,
-        vendorstate     char(2)                 null,
-        vendorzip       varchar2(10)            null
 );
 
 

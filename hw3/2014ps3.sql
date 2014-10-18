@@ -203,6 +203,21 @@ SELECT * FROM tbvendor;
 --        *) Column constraints
 -- ******************************************************
 
+-- Validate entity integrity - unable to insert a duplicate primary key into tbcustomer  
+Insert into tbcustomer (customerid, customername) values ('1234', 'Duplicate customerid');
+
+-- Validate entity integrity - unable to insert a NULL primary key into tbproduct  
+Insert into tbproduct (productid, productname) values (null, 'Null productid');
+
+-- Validate referential integrity - unable to insert into tborderitem a foriegn key which does not match a primary key
+Insert into tborderitem values (4, '03', '999', '9999', 2, 55);
+
+-- Validate referential integrity - unable to update a primary key in tborder with an existing foriegn key
+Update tborder set orderno = 4 where orderno =3;
+
+-- Validate column constraint - unable to insert into tbitem.itemprice a negative number
+Update tbitem set itemprice = -22 where productid = '100' and vendorid = '5100';
+
 
 -- ******************************************************
 --    END SESSION

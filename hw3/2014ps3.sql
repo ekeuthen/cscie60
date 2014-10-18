@@ -220,6 +220,61 @@ Update tbitem set itemprice = -22 where productid = '100' and vendorid = '5100';
 
 
 -- ******************************************************
+--    QUERY TABLES
+--
+-- ******************************************************
+
+-- Are there any products that are not selling?
+
+SELECT DISTINCT P.PRODUCTNAME
+FROM TBPRODUCT P
+WHERE NOT EXISTS
+  (SELECT DISTINCT PRODUCTID
+  FROM TBORDERITEM IO
+  WHERE IO.PRODUCTID = P.PRODUCTID
+  );
+
+  -- Which customers have purchased toasters?
+
+SELECT DISTINCT C.CUSTOMERNAME
+FROM TBCUSTOMER C,
+  TBORDER O,
+  TBORDERITEM IO,
+  TBPRODUCT P
+WHERE C.CUSTOMERID = O.CUSTOMERID
+AND O.ORDERNO      = IO.ORDERNO
+AND IO.PRODUCTID   = P.PRODUCTID
+AND P.PRODUCTNAME  = 'Toaster';
+
+-- Validate that at least three vendors have offered quotes on every product.
+
+SELECT P.PRODUCTID,
+  P.PRODUCTNAME,
+  COUNT (V.VENDORID) AS "NUMBER OF QUOTES"
+FROM TBPRODUCT P,
+  TBVENDOR V,
+  TBITEM I
+WHERE P.PRODUCTID = I.PRODUCTID
+AND I.VENDORID    = V.VENDORID
+GROUP BY P.PRODUCTID,
+  P.PRODUCTNAME
+HAVING COUNT (V.VENDORID) >= 3;
+
+-- Which vendor has the lowest price for each product?
+
+SELECT V.VENDORNAME,
+  I.PRODUCTID,
+  I.ITEMPRICE
+FROM TBVENDOR V,
+  TBITEM I
+WHERE I.VENDORID = V.VENDORID
+AND I.ITEMPRICE IN
+  (SELECT MIN (I.ITEMPRICE) FROM TBITEM I GROUP BY I.PRODUCTID
+  )
+ORDER BY 1,2;
+
+
+-- ******************************************************
 --    END SESSION
 -- ******************************************************
 

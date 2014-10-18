@@ -139,10 +139,14 @@ CREATE sequence seqorder
 -- ******************************************************
 
 /* inventory tbcustomer */
-
+Insert into tbcustomer values ('1123','Z Best', '123 Main Street', 'Cambridge', 'MA', '02139', 'Carol Jenkins', '(617) 555-2222', 'jenkinsc@abc.com');
+Insert into tbcustomer values ('1124','Pop Shop', '2233 Spring Street', 'Boston', 'MA', '02114', 'Mandy Peters', '(617) 344-1111', 'mpeters@def.com');
+Insert into tbcustomer values ('1667','Zoom', '4545 Winter Street', 'Boston', 'MA', '02112', 'James Hughes', '(617) 433-3333', 'jhughes@zoomco.com');
 
 /* inventory tbitem */
-
+Insert into tbvendor values ('5100', 'WeSell', '233 South Willow Street', 'Manchester', 'NH', '03102');
+Insert into tbvendor values ('5200', 'Givin''', '33 Harvard Place', 'Boston', 'MA', '02211');
+Insert into tbvendor values ('5300', 'Z A List', '4500 Summer Street', 'Quincy', 'MA', '02161');
 
 /* inventory tborder */
 

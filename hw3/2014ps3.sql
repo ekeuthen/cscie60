@@ -129,8 +129,7 @@ CREATE sequence seqorder
         increment by 1
         start with 1;
 
-    
-    
+     
 -- ******************************************************
 --    POPULATE TABLES
 --
@@ -144,21 +143,42 @@ Insert into tbcustomer values ('1124','Pop Shop', '2233 Spring Street', 'Boston'
 Insert into tbcustomer values ('1667','Zoom', '4545 Winter Street', 'Boston', 'MA', '02112', 'James Hughes', '(617) 433-3333', 'jhughes@zoomco.com');
 
 /* inventory tbitem */
+Insert into tbitem values ('100', '5100', 55, 22);
+Insert into tbitem values ('100', '5200', 66, 20);
+Insert into tbitem values ('100', '5300', 70, 35);
+Insert into tbitem values ('121', '5100', 12, 20);
+Insert into tbitem values ('121', '5300', 15, 15);
+Insert into tbitem values ('434', '5100', 18, 35);
+Insert into tbitem values ('434', '5200', 25, 25);
+Insert into tbitem values ('677', '5100', 40, 20);
+Insert into tbitem values ('677', '5200', 46, 30);
+Insert into tbitem values ('677', '5300', 48, 20);
+
+/* inventory tborder */
+Insert into tborder values (1, to_date('10-10', 'mm-yy'), '1667');
+Insert into tborder values (2, to_date('10-12', 'mm-yy'), '1234');
+Insert into tborder values (3, to_date('10-13', 'mm-yy'), '1667');
+
+/* inventory tborderitem */
+Insert into tborderitem values (1, '01', '100', '5300', 5, 70);
+Insert into tborderitem values (1, '02', '100', '5100', 5, 55);
+Insert into tborderitem values (1, '03', '121', '5100', 5, 12);
+Insert into tborderitem values (2, '01', '100', '5200', 10, 65);
+Insert into tborderitem values (2, '02', '677', '5300', 5, 48);
+Insert into tborderitem values (3, '01', '121', '5100', 5, 12);
+Insert into tborderitem values (3, '02', '677', '5300', 3, 45);
+Insert into tborderitem values (3, '03', '100', '5100', 2, 55);
+
+/* inventory tbproduct */
+Insert into tbproduct values ('100', 'Microwave', 40);
+Insert into tbproduct values ('121', 'Toaster', 30);
+Insert into tbproduct values ('434', 'Steamer', 40);
+Insert into tbproduct values ('677', 'Coffee Maker', 20);
+
+/* inventory tbvendor */
 Insert into tbvendor values ('5100', 'WeSell', '233 South Willow Street', 'Manchester', 'NH', '03102');
 Insert into tbvendor values ('5200', 'Givin''', '33 Harvard Place', 'Boston', 'MA', '02211');
 Insert into tbvendor values ('5300', 'Z A List', '4500 Summer Street', 'Quincy', 'MA', '02161');
-
-/* inventory tborder */
-
-
-/* inventory tborderitem */
-
-
-/* inventory tbproduct */
-
-
-/* inventory tbvendor */
-
 
 -- ******************************************************
 --    VIEW TABLES

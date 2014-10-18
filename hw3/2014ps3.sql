@@ -88,7 +88,7 @@ CREATE table tbproduct (
 
 
 CREATE table tbitem (
-        productid       char(4)                         not null
+        productid       char(3)                         not null
                 constraint fk_productid_tbitem references tbproduct (productid),
         vendorid        char(4)                         not null
                 constraint fk_vendorid_tbitem references tbvendor (vendorid),
@@ -139,8 +139,19 @@ CREATE sequence seqorder
 
 /* inventory tbcustomer */
 Insert into tbcustomer values ('1123','Z Best', '123 Main Street', 'Cambridge', 'MA', '02139', 'Carol Jenkins', '(617) 555-2222', 'jenkinsc@abc.com');
-Insert into tbcustomer values ('1124','Pop Shop', '2233 Spring Street', 'Boston', 'MA', '02114', 'Mandy Peters', '(617) 344-1111', 'mpeters@def.com');
+Insert into tbcustomer values ('1234','Pop Shop', '2233 Spring Street', 'Boston', 'MA', '02114', 'Mandy Peters', '(617) 344-1111', 'mpeters@def.com');
 Insert into tbcustomer values ('1667','Zoom', '4545 Winter Street', 'Boston', 'MA', '02112', 'James Hughes', '(617) 433-3333', 'jhughes@zoomco.com');
+
+/* inventory tbvendor */
+Insert into tbvendor values ('5100', 'WeSell', '233 South Willow Street', 'Manchester', 'NH', '03102');
+Insert into tbvendor values ('5200', 'Givin''', '33 Harvard Place', 'Boston', 'MA', '02211');
+Insert into tbvendor values ('5300', 'Z A List', '4500 Summer Street', 'Quincy', 'MA', '02161');
+
+/* inventory tbproduct */
+Insert into tbproduct values ('100', 'Microwave', 40);
+Insert into tbproduct values ('121', 'Toaster', 30);
+Insert into tbproduct values ('434', 'Steamer', 40);
+Insert into tbproduct values ('677', 'Coffee Maker', 20);
 
 /* inventory tbitem */
 Insert into tbitem values ('100', '5100', 55, 22);
@@ -168,17 +179,6 @@ Insert into tborderitem values (2, '02', '677', '5300', 5, 48);
 Insert into tborderitem values (3, '01', '121', '5100', 5, 12);
 Insert into tborderitem values (3, '02', '677', '5300', 3, 45);
 Insert into tborderitem values (3, '03', '100', '5100', 2, 55);
-
-/* inventory tbproduct */
-Insert into tbproduct values ('100', 'Microwave', 40);
-Insert into tbproduct values ('121', 'Toaster', 30);
-Insert into tbproduct values ('434', 'Steamer', 40);
-Insert into tbproduct values ('677', 'Coffee Maker', 20);
-
-/* inventory tbvendor */
-Insert into tbvendor values ('5100', 'WeSell', '233 South Willow Street', 'Manchester', 'NH', '03102');
-Insert into tbvendor values ('5200', 'Givin''', '33 Harvard Place', 'Boston', 'MA', '02211');
-Insert into tbvendor values ('5300', 'Z A List', '4500 Summer Street', 'Quincy', 'MA', '02161');
 
 -- ******************************************************
 --    VIEW TABLES

@@ -234,7 +234,8 @@ WHERE NOT EXISTS
   WHERE IO.PRODUCTID = P.PRODUCTID
   );
 
-  -- Which customers have purchased toasters?
+
+-- Which customers have purchased toasters?
 
 SELECT DISTINCT C.CUSTOMERNAME
 FROM TBCUSTOMER C,
@@ -245,6 +246,7 @@ WHERE C.CUSTOMERID = O.CUSTOMERID
 AND O.ORDERNO      = IO.ORDERNO
 AND IO.PRODUCTID   = P.PRODUCTID
 AND P.PRODUCTNAME  = 'Toaster';
+
 
 -- Validate that at least three vendors have offered quotes on every product.
 
@@ -258,7 +260,9 @@ WHERE P.PRODUCTID = I.PRODUCTID
 AND I.VENDORID    = V.VENDORID
 GROUP BY P.PRODUCTID,
   P.PRODUCTNAME
-HAVING COUNT (V.VENDORID) >= 3;
+HAVING COUNT (V.VENDORID) >= 3
+ORDER BY 1;
+
 
 -- Which vendor has the lowest price for each product?
 
@@ -273,6 +277,27 @@ AND I.ITEMPRICE IN
   )
 ORDER BY 1,2;
 
+
+-- Which products have been ordered or not?
+
+SELECT DISTINCT P.PRODUCTID,
+  IO.ORDERNO
+FROM TBORDERITEM IO,
+  TBPRODUCT P
+WHERE IO.PRODUCTID (+) = P.PRODUCTID
+ORDER BY 1;
+
+-- Which customeres are located in the same city?
+
+SELECT C.CUSTOMERNAME,
+  C2.CUSTOMERNAME,
+  C.CUSTOMERCITY
+FROM TBCUSTOMER C,
+  TBCUSTOMER C2
+WHERE C.CUSTOMERCITY = C2.CUSTOMERCITY
+AND C.CUSTOMERNAME  != C2.CUSTOMERNAME
+AND C.CUSTOMERNAME   > C2.CUSTOMERNAME
+ORDER BY 1, 2;
 
 -- ******************************************************
 --    END SESSION

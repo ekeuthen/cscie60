@@ -287,6 +287,7 @@ FROM TBORDERITEM IO,
 WHERE IO.PRODUCTID (+) = P.PRODUCTID
 ORDER BY 1;
 
+
 -- Which customeres are located in the same city?
 
 SELECT C.CUSTOMERNAME,
@@ -295,9 +296,38 @@ SELECT C.CUSTOMERNAME,
 FROM TBCUSTOMER C,
   TBCUSTOMER C2
 WHERE C.CUSTOMERCITY = C2.CUSTOMERCITY
+-- ensure that customer name 1 and customer name 2 are different:
 AND C.CUSTOMERNAME  != C2.CUSTOMERNAME
-AND C.CUSTOMERNAME   > C2.CUSTOMERNAME
+-- ensure that redundant rows are not included
+-- could use only this limit and not the prior one, but this is clearer
+AND C.CUSTOMERNAME > C2.CUSTOMERNAME
 ORDER BY 1, 2;
+
+
+-- How many weeks before Wiggly, Inc. runs out of some product necessary to meet the sales budget?
+
+-- Create view listing # of weeks left for each product
+CREATE VIEW WEEKS_LEFT
+  (
+    PRODUCTNAME,
+    WEEKSLEFT
+  ) AS
+SELECT P.PRODUCTNAME,
+  SUM (I.QOH) / P.BUDGETSALES AS WEEKSLEFT
+FROM TBPRODUCT P,
+  TBITEM I
+WHERE P.PRODUCTID = I.PRODUCTID
+GROUP BY (P.PRODUCTNAME, P.BUDGETSALES)
+ORDER BY 1;
+
+-- Query view to find minimum number of weeks
+SELECT W.PRODUCTNAME,
+  MIN (W.WEEKSLEFT) AS WEEKKSLEFT
+FROM WEEKS_LEFT W
+WHERE W.WEEKSLEFT =
+  (SELECT MIN (W.WEEKSLEFT) FROM WEEKS_LEFT W
+  )
+GROUP BY W.PRODUCTNAME;
 
 -- ******************************************************
 --    END SESSION

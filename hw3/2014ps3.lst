@@ -1,0 +1,652 @@
+SQL> 
+SQL> 
+SQL> -- ******************************************************
+SQL> --    DROP TABLES
+SQL> -- Note:  Issue the appropiate commands to drop tables
+SQL> -- EK: Drop children first; purge avoids recycle bin
+SQL> -- ******************************************************
+SQL> 
+SQL> DROP table tborderitem purge;
+
+Table dropped.
+
+SQL> DROP table tborder purge;
+
+Table dropped.
+
+SQL> DROP table tbitem purge;
+
+Table dropped.
+
+SQL> DROP table tbproduct purge;
+
+Table dropped.
+
+SQL> DROP table tbvendor purge;
+
+Table dropped.
+
+SQL> DROP table tbcustomer purge;
+
+Table dropped.
+
+SQL> 
+SQL> 
+SQL> -- ******************************************************
+SQL> --    DROP SEQUENCES
+SQL> -- Note:  Issue the appropiate commands to drop sequences
+SQL> -- ******************************************************
+SQL> 
+SQL> DROP sequence seqorder;
+
+Sequence dropped.
+
+SQL> 
+SQL> 
+SQL> -- ******************************************************
+SQL> --    CREATE TABLES
+SQL> -- ******************************************************
+SQL> 
+SQL> CREATE table tbcustomer (
+  2  	     customerid      char(4)		     not null
+  3  		     constraint rg_customerid check
+  4  			     (customerid between '1000' and '4999')
+  5  		     constraint pk_customer primary key,
+  6  	     customername    varchar2(40)	     not null,
+  7  	     customeraddress varchar2(50)	     null,
+  8  	     customercity    varchar2(30)	     null,
+  9  	     customerstate   char(2)		     null,
+ 10  	     customerzip     varchar2(10)	     null,
+ 11  	     customercontact varchar2(30)	     null,
+ 12  	     customerphone   varchar2(20)	     null,
+ 13  	     customeremail   varchar2(50)	     null
+ 14  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> CREATE table tbvendor (
+  2  	     vendorid	     char(4)		     not null
+  3  		     constraint pk_vendor primary key
+  4  		     constraint rg_vendorid check (vendorid between '5000' and '9999'),
+  5  	     vendorname      varchar2(25)	     not null,
+  6  	     vendoraddress   varchar2(50)	     null,
+  7  	     vendorcity      varchar2(30)	     null,
+  8  	     vendorstate     char(2)		     null,
+  9  	     vendorzip	     varchar2(10)	     null
+ 10  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> CREATE table tbproduct (
+  2  	     productid	     char(3)			     not null
+  3  		     constraint pk_product primary key
+  4  		     constraint rg_productid check (productid between '100' and '999'),
+  5  	     productname     varchar2(30)		     not null,
+  6  	     budgetsales     number(4,0)     default 0	     null
+  7  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> CREATE table tbitem (
+  2  	     productid	     char(3)			     not null
+  3  		     constraint fk_productid_tbitem references tbproduct (productid),
+  4  	     vendorid	     char(4)			     not null
+  5  		     constraint fk_vendorid_tbitem references tbvendor (vendorid),
+  6  	     itemprice	     number(10,2)    default 0.00    null
+  7  		     constraint rg_itemprice check (itemprice > 0),
+  8  	     qoh	     number(8,0)     default 0	     not null,
+  9  		     constraint pk_task primary key (productid, vendorid)
+ 10  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> CREATE table tborder (
+  2  	     orderno	     number(11,0)	     not null
+  3  		     constraint pk_order primary key,
+  4  	     orderdate	     date    default SYSDATE not null,
+  5  	     customerid      char(4)		     not null
+  6  		     constraint fk_customerid_tborder references tbcustomer (customerid) on delete cascade
+  7  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> CREATE table tborderitem (
+  2  	     orderno	     number(11,0)	     not null
+  3  		     constraint fk_orderno_tbborderitem references tborder (orderno) on delete cascade,
+  4  	     orderitemno     char(2)		     not null,
+  5  	     productid	     char(3)		     null,
+  6  	     vendorid	     char(4)		     null,
+  7  	     quantity	     number(4,0) default 0   not null,
+  8  	     itemprice	     number(10,2)	     null,
+  9  		     constraint pk_orderitem primary key (orderno, orderitemno),
+ 10  		     constraint fk_prodid_vendid_bitem foreign key (productid, vendorid) references tbitem (productid, vendorid) on delete cascade
+ 11  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> -- ******************************************************
+SQL> --    CREATE SEQUENCES
+SQL> -- ******************************************************
+SQL> 
+SQL> CREATE sequence seqorder
+  2  	     increment by 1
+  3  	     start with 1;
+
+Sequence created.
+
+SQL> 
+SQL> 
+SQL> -- ******************************************************
+SQL> --    POPULATE TABLES
+SQL> --
+SQL> -- Note:  Follow instructions and data provided on PS-3
+SQL> --        to populate the tables
+SQL> -- ******************************************************
+SQL> 
+SQL> /* inventory tbcustomer */
+SQL> Insert into tbcustomer values ('1123','Z Best', '123 Main Street', 'Cambridge', 'MA', '02139', 'Carol Jenkins', '(617) 555-2222', 'jenkinsc@abc.com');
+
+1 row created.
+
+SQL> Insert into tbcustomer values ('1234','Pop Shop', '2233 Spring Street', 'Boston', 'MA', '02114', 'Mandy Peters', '(617) 344-1111', 'mpeters@def.com');
+
+1 row created.
+
+SQL> Insert into tbcustomer values ('1667','Zoom', '4545 Winter Street', 'Boston', 'MA', '02112', 'James Hughes', '(617) 433-3333', 'jhughes@zoomco.com');
+
+1 row created.
+
+SQL> 
+SQL> /* inventory tbvendor */
+SQL> Insert into tbvendor values ('5100', 'WeSell', '233 South Willow Street', 'Manchester', 'NH', '03102');
+
+1 row created.
+
+SQL> Insert into tbvendor values ('5200', 'Givin''', '33 Harvard Place', 'Boston', 'MA', '02211');
+
+1 row created.
+
+SQL> Insert into tbvendor values ('5300', 'Z A List', '4500 Summer Street', 'Quincy', 'MA', '02161');
+
+1 row created.
+
+SQL> 
+SQL> /* inventory tbproduct */
+SQL> Insert into tbproduct values ('100', 'Microwave', 40);
+
+1 row created.
+
+SQL> Insert into tbproduct values ('121', 'Toaster', 30);
+
+1 row created.
+
+SQL> Insert into tbproduct values ('434', 'Steamer', 40);
+
+1 row created.
+
+SQL> Insert into tbproduct values ('677', 'Coffee Maker', 20);
+
+1 row created.
+
+SQL> 
+SQL> /* inventory tbitem */
+SQL> Insert into tbitem values ('100', '5100', 55, 22);
+
+1 row created.
+
+SQL> Insert into tbitem values ('100', '5200', 66, 20);
+
+1 row created.
+
+SQL> Insert into tbitem values ('100', '5300', 70, 35);
+
+1 row created.
+
+SQL> Insert into tbitem values ('121', '5100', 12, 20);
+
+1 row created.
+
+SQL> Insert into tbitem values ('121', '5300', 15, 15);
+
+1 row created.
+
+SQL> Insert into tbitem values ('434', '5100', 18, 35);
+
+1 row created.
+
+SQL> Insert into tbitem values ('434', '5200', 25, 25);
+
+1 row created.
+
+SQL> Insert into tbitem values ('677', '5100', 40, 20);
+
+1 row created.
+
+SQL> Insert into tbitem values ('677', '5200', 46, 30);
+
+1 row created.
+
+SQL> Insert into tbitem values ('677', '5300', 48, 20);
+
+1 row created.
+
+SQL> 
+SQL> /* inventory tborder */
+SQL> Insert into tborder values (1, to_date('10-10', 'mm-yy'), '1667');
+
+1 row created.
+
+SQL> Insert into tborder values (2, to_date('10-12', 'mm-yy'), '1234');
+
+1 row created.
+
+SQL> Insert into tborder values (3, to_date('10-13', 'mm-yy'), '1667');
+
+1 row created.
+
+SQL> 
+SQL> /* inventory tborderitem */
+SQL> Insert into tborderitem values (1, '01', '100', '5300', 5, 70);
+
+1 row created.
+
+SQL> Insert into tborderitem values (1, '02', '100', '5100', 5, 55);
+
+1 row created.
+
+SQL> Insert into tborderitem values (1, '03', '121', '5100', 5, 12);
+
+1 row created.
+
+SQL> Insert into tborderitem values (2, '01', '100', '5200', 10, 65);
+
+1 row created.
+
+SQL> Insert into tborderitem values (2, '02', '677', '5300', 5, 48);
+
+1 row created.
+
+SQL> Insert into tborderitem values (3, '01', '121', '5100', 5, 12);
+
+1 row created.
+
+SQL> Insert into tborderitem values (3, '02', '677', '5300', 3, 45);
+
+1 row created.
+
+SQL> Insert into tborderitem values (3, '03', '100', '5100', 2, 55);
+
+1 row created.
+
+SQL> 
+SQL> -- ******************************************************
+SQL> --    VIEW TABLES
+SQL> --
+SQL> -- Note:  Issue the appropiate commands to show your data
+SQL> -- ******************************************************
+SQL> 
+SQL> SELECT * FROM tbcustomer;
+
+CUST CUSTOMERNAME                                                               
+---- ----------------------------------------                                   
+CUSTOMERADDRESS                                                                 
+--------------------------------------------------                              
+CUSTOMERCITY                   CU CUSTOMERZI CUSTOMERCONTACT                    
+------------------------------ -- ---------- ------------------------------     
+CUSTOMERPHONE        CUSTOMEREMAIL                                              
+-------------------- --------------------------------------------------         
+1123 Z Best                                                                     
+123 Main Street                                                                 
+Cambridge                      MA 02139      Carol Jenkins                      
+(617) 555-2222       jenkinsc@abc.com                                           
+                                                                                
+
+CUST CUSTOMERNAME                                                               
+---- ----------------------------------------                                   
+CUSTOMERADDRESS                                                                 
+--------------------------------------------------                              
+CUSTOMERCITY                   CU CUSTOMERZI CUSTOMERCONTACT                    
+------------------------------ -- ---------- ------------------------------     
+CUSTOMERPHONE        CUSTOMEREMAIL                                              
+-------------------- --------------------------------------------------         
+1234 Pop Shop                                                                   
+2233 Spring Street                                                              
+Boston                         MA 02114      Mandy Peters                       
+(617) 344-1111       mpeters@def.com                                            
+                                                                                
+
+CUST CUSTOMERNAME                                                               
+---- ----------------------------------------                                   
+CUSTOMERADDRESS                                                                 
+--------------------------------------------------                              
+CUSTOMERCITY                   CU CUSTOMERZI CUSTOMERCONTACT                    
+------------------------------ -- ---------- ------------------------------     
+CUSTOMERPHONE        CUSTOMEREMAIL                                              
+-------------------- --------------------------------------------------         
+1667 Zoom                                                                       
+4545 Winter Street                                                              
+Boston                         MA 02112      James Hughes                       
+(617) 433-3333       jhughes@zoomco.com                                         
+                                                                                
+
+SQL> SELECT * FROM tbitem;
+
+PRO VEND  ITEMPRICE        QOH                                                  
+--- ---- ---------- ----------                                                  
+100 5100         55         22                                                  
+100 5200         66         20                                                  
+100 5300         70         35                                                  
+121 5100         12         20                                                  
+121 5300         15         15                                                  
+434 5100         18         35                                                  
+434 5200         25         25                                                  
+677 5100         40         20                                                  
+677 5200         46         30                                                  
+677 5300         48         20                                                  
+
+10 rows selected.
+
+SQL> SELECT * FROM tborder;
+
+   ORDERNO ORDERDATE CUST                                                       
+---------- --------- ----                                                       
+         1 01-OCT-10 1667                                                       
+         2 01-OCT-12 1234                                                       
+         3 01-OCT-13 1667                                                       
+
+SQL> SELECT * FROM tborderitem;
+
+   ORDERNO OR PRO VEND   QUANTITY  ITEMPRICE                                    
+---------- -- --- ---- ---------- ----------                                    
+         1 01 100 5300          5         70                                    
+         1 02 100 5100          5         55                                    
+         1 03 121 5100          5         12                                    
+         2 01 100 5200         10         65                                    
+         2 02 677 5300          5         48                                    
+         3 01 121 5100          5         12                                    
+         3 02 677 5300          3         45                                    
+         3 03 100 5100          2         55                                    
+
+8 rows selected.
+
+SQL> SELECT * FROM tbproduct;
+
+PRO PRODUCTNAME                    BUDGETSALES                                  
+--- ------------------------------ -----------                                  
+100 Microwave                               40                                  
+121 Toaster                                 30                                  
+434 Steamer                                 40                                  
+677 Coffee Maker                            20                                  
+
+SQL> SELECT * FROM tbvendor;
+
+VEND VENDORNAME                                                                 
+---- -------------------------                                                  
+VENDORADDRESS                                                                   
+--------------------------------------------------                              
+VENDORCITY                     VE VENDORZIP                                     
+------------------------------ -- ----------                                    
+5100 WeSell                                                                     
+233 South Willow Street                                                         
+Manchester                     NH 03102                                         
+                                                                                
+5200 Givin'                                                                     
+33 Harvard Place                                                                
+Boston                         MA 02211                                         
+
+VEND VENDORNAME                                                                 
+---- -------------------------                                                  
+VENDORADDRESS                                                                   
+--------------------------------------------------                              
+VENDORCITY                     VE VENDORZIP                                     
+------------------------------ -- ----------                                    
+                                                                                
+5300 Z A List                                                                   
+4500 Summer Street                                                              
+Quincy                         MA 02161                                         
+                                                                                
+
+SQL> 
+SQL> 
+SQL> -- ******************************************************
+SQL> --    QUALITY CONTROLS
+SQL> --
+SQL> -- Note:  Test only 5 constraints of the following types:
+SQL> --        *) Entity integrity
+SQL> --        *) Referential integrity
+SQL> --        *) Column constraints
+SQL> -- ******************************************************
+SQL> 
+SQL> -- Validate entity integrity - unable to insert a duplicate primary key into tbcustomer
+SQL> Insert into tbcustomer (customerid, customername) values ('1234', 'Duplicate customerid');
+Insert into tbcustomer (customerid, customername) values ('1234', 'Duplicate customerid')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (EKEUTHEN.PK_CUSTOMER) violated 
+
+
+SQL> 
+SQL> -- Validate entity integrity - unable to insert a NULL primary key into tbproduct
+SQL> Insert into tbproduct (productid, productname) values (null, 'Null productid');
+Insert into tbproduct (productid, productname) values (null, 'Null productid')
+                                                       *
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("EKEUTHEN"."TBPRODUCT"."PRODUCTID") 
+
+
+SQL> 
+SQL> -- Validate referential integrity - unable to insert into tborderitem a foriegn key which does not match a primary key
+SQL> Insert into tborderitem values (4, '03', '999', '9999', 2, 55);
+Insert into tborderitem values (4, '03', '999', '9999', 2, 55)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (EKEUTHEN.FK_PRODID_VENDID_BITEM) violated - 
+parent key not found 
+
+
+SQL> 
+SQL> -- Validate referential integrity - unable to update a primary key in tborder with an existing foriegn key
+SQL> Update tborder set orderno = 4 where orderno =3;
+Update tborder set orderno = 4 where orderno =3
+*
+ERROR at line 1:
+ORA-02292: integrity constraint (EKEUTHEN.FK_ORDERNO_TBBORDERITEM) violated - 
+child record found 
+
+
+SQL> 
+SQL> -- Validate column constraint - unable to insert into tbitem.itemprice a negative number
+SQL> Update tbitem set itemprice = -22 where productid = '100' and vendorid = '5100';
+Update tbitem set itemprice = -22 where productid = '100' and vendorid = '5100'
+*
+ERROR at line 1:
+ORA-02290: check constraint (EKEUTHEN.RG_ITEMPRICE) violated 
+
+
+SQL> 
+SQL> 
+SQL> -- ******************************************************
+SQL> --    QUERY TABLES
+SQL> --
+SQL> -- ******************************************************
+SQL> 
+SQL> -- Are there any products that are not selling?
+SQL> 
+SQL> SELECT DISTINCT P.PRODUCTNAME
+  2  FROM TBPRODUCT P
+  3  WHERE NOT EXISTS
+  4    (SELECT DISTINCT PRODUCTID
+  5    FROM TBORDERITEM IO
+  6    WHERE IO.PRODUCTID = P.PRODUCTID
+  7    );
+
+PRODUCTNAME                                                                     
+------------------------------                                                  
+Steamer                                                                         
+
+SQL> 
+SQL> 
+SQL> -- Which customers have purchased toasters?
+SQL> 
+SQL> SELECT DISTINCT C.CUSTOMERNAME
+  2  FROM TBCUSTOMER C,
+  3    TBORDER O,
+  4    TBORDERITEM IO,
+  5    TBPRODUCT P
+  6  WHERE C.CUSTOMERID = O.CUSTOMERID
+  7  AND O.ORDERNO	= IO.ORDERNO
+  8  AND IO.PRODUCTID	= P.PRODUCTID
+  9  AND P.PRODUCTNAME	= 'Toaster';
+
+CUSTOMERNAME                                                                    
+----------------------------------------                                        
+Zoom                                                                            
+
+SQL> 
+SQL> 
+SQL> -- Validate that at least three vendors have offered quotes on every product.
+SQL> 
+SQL> SELECT P.PRODUCTID,
+  2    P.PRODUCTNAME,
+  3    COUNT (V.VENDORID) AS "NUMBER OF QUOTES"
+  4  FROM TBPRODUCT P,
+  5    TBVENDOR V,
+  6    TBITEM I
+  7  WHERE P.PRODUCTID = I.PRODUCTID
+  8  AND I.VENDORID    = V.VENDORID
+  9  GROUP BY P.PRODUCTID,
+ 10    P.PRODUCTNAME
+ 11  HAVING COUNT (V.VENDORID) >= 3
+ 12  ORDER BY 1;
+
+PRO PRODUCTNAME                    NUMBER OF QUOTES                             
+--- ------------------------------ ----------------                             
+100 Microwave                                     3                             
+677 Coffee Maker                                  3                             
+
+SQL> 
+SQL> 
+SQL> -- Which vendor has the lowest price for each product?
+SQL> 
+SQL> SELECT V.VENDORNAME,
+  2    I.PRODUCTID,
+  3    I.ITEMPRICE
+  4  FROM TBVENDOR V,
+  5    TBITEM I
+  6  WHERE I.VENDORID = V.VENDORID
+  7  AND I.ITEMPRICE IN
+  8    (SELECT MIN (I.ITEMPRICE) FROM TBITEM I GROUP BY I.PRODUCTID
+  9    )
+ 10  ORDER BY 1,2;
+
+VENDORNAME                PRO  ITEMPRICE                                        
+------------------------- --- ----------                                        
+WeSell                    100         55                                        
+WeSell                    121         12                                        
+WeSell                    434         18                                        
+WeSell                    677         40                                        
+
+SQL> 
+SQL> 
+SQL> -- Which products have been ordered or not?
+SQL> 
+SQL> SELECT DISTINCT P.PRODUCTID,
+  2    IO.ORDERNO
+  3  FROM TBORDERITEM IO,
+  4    TBPRODUCT P
+  5  WHERE IO.PRODUCTID (+) = P.PRODUCTID
+  6  ORDER BY 1;
+
+PRO    ORDERNO                                                                  
+--- ----------                                                                  
+100          1                                                                  
+100          2                                                                  
+100          3                                                                  
+121          1                                                                  
+121          3                                                                  
+434                                                                             
+677          2                                                                  
+677          3                                                                  
+
+8 rows selected.
+
+SQL> 
+SQL> 
+SQL> -- Which customeres are located in the same city?
+SQL> 
+SQL> SELECT C.CUSTOMERNAME,
+  2    C2.CUSTOMERNAME,
+  3    C.CUSTOMERCITY
+  4  FROM TBCUSTOMER C,
+  5    TBCUSTOMER C2
+  6  WHERE C.CUSTOMERCITY = C2.CUSTOMERCITY
+  7  -- ensure that customer name 1 and customer name 2 are different:
+  8  AND C.CUSTOMERNAME  != C2.CUSTOMERNAME
+  9  -- ensure that redundant rows are not included
+ 10  -- could use only this limit and not the prior one, but this is clearer
+ 11  AND C.CUSTOMERNAME > C2.CUSTOMERNAME
+ 12  ORDER BY 1, 2;
+
+CUSTOMERNAME                                                                    
+----------------------------------------                                        
+CUSTOMERNAME                             CUSTOMERCITY                           
+---------------------------------------- ------------------------------         
+Zoom                                                                            
+Pop Shop                                 Boston                                 
+                                                                                
+
+SQL> 
+SQL> 
+SQL> -- How many weeks before Wiggly, Inc. runs out of some product necessary to meet the sales budget?
+SQL> 
+SQL> -- Create view listing # of weeks left for each product
+SQL> CREATE VIEW WEEKS_LEFT
+  2    (
+  3  	 PRODUCTNAME,
+  4  	 WEEKSLEFT
+  5    ) AS
+  6  SELECT P.PRODUCTNAME,
+  7    SUM (I.QOH) / P.BUDGETSALES AS WEEKSLEFT
+  8  FROM TBPRODUCT P,
+  9    TBITEM I
+ 10  WHERE P.PRODUCTID = I.PRODUCTID
+ 11  GROUP BY (P.PRODUCTNAME, P.BUDGETSALES)
+ 12  ORDER BY 1;
+CREATE VIEW WEEKS_LEFT
+            *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> 
+SQL> -- Query view to find minimum number of weeks
+SQL> SELECT W.PRODUCTNAME,
+  2    MIN (W.WEEKSLEFT) AS WEEKKSLEFT
+  3  FROM WEEKS_LEFT W
+  4  WHERE W.WEEKSLEFT =
+  5    (SELECT MIN (W.WEEKSLEFT) FROM WEEKS_LEFT W
+  6    )
+  7  GROUP BY W.PRODUCTNAME;
+
+PRODUCTNAME                    WEEKKSLEFT                                       
+------------------------------ ----------                                       
+Toaster                        1.16666667                                       
+
+SQL> 
+SQL> -- ******************************************************
+SQL> --    END SESSION
+SQL> -- ******************************************************
+SQL> 
+SQL> spool off

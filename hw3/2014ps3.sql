@@ -329,6 +329,37 @@ WHERE W.WEEKSLEFT =
   )
 GROUP BY W.PRODUCTNAME;
 
+
+-- ******************************************************
+--    
+CREATE TRIGGERS
+--
+-- ******************************************************
+
+--Create a trigger to validate the each product has quotes from at least 3 vendors.
+--If product does not meet this criteria, triggers should alert the user.
+
+CREATE or REPLACE trigger vendor_offers_rule
+after insert or update or delete on tbitem
+declare
+  x number; /*create PL/SQL variable for count of vendors per product*/
+begin
+  /*products with no quotes considered */
+  SELECT count (*) into x
+    from TBPRODUCT p
+    where not exists (select count (*)
+      from TBITEM i 
+      where p.PRODUCTID = i.PRODUCTID
+      group by i.productid
+      having count(*) >= 3);
+if x > 0 then
+  dbms_output.put_line (
+    '***Warning each product must have at least 3 vendor quotes.***');
+end if;
+end vendor_offers_rule;
+/
+
+
 -- ******************************************************
 --    END SESSION
 -- ******************************************************

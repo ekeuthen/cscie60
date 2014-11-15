@@ -1,0 +1,15 @@
+body {
+	font-family: verdana, tahoma, helvetica, arial, sans-serif;
+}
+table {
+    border-collapse: collapse;
+}
+table, th, td {
+    border: 1px solid black;
+}
+td, th {
+    padding: 15px;
+}
+.error {
+	color: red;
+}

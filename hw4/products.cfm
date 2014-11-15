@@ -52,8 +52,8 @@
 				password="#Request.password#">
 				SELECT 
 					I.VENDORID as VENDORID, 
-					V.VENDORNAME, 
-					I.ITEMPRICE 
+					V.VENDORNAME as VENDORNAME, 
+					I.ITEMPRICE as ITEMPRICE
 				FROM 
 					TBPRODUCT P,
 					TBITEM I,
@@ -75,13 +75,19 @@
 		    			Price Quote
 		    		</th>
 		    	</tr>
-			    <tr>
-			    	<td>
-			    		<cfoutput query='productQuotes'>
-			    			#VENDORID#
-			    		</cfoutput>
-			    	</td>
-			    </tr>
+		    	<cfoutput query="productQuotes">
+				    <tr>
+				    	<td>
+				    		#VENDORID#
+				    	</td>
+				    	<td>
+				    		#VENDORNAME#
+				    	</td>
+				    	<td>
+				    		#ITEMPRICE#
+				    	</td>
+				    </tr>
+			    </cfoutput>
 		    </table>
 		</cfif>
 	</body>

@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>
@@ -6,6 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
 	<body>
+		<cfinclude template = "header.cfm">
 		<h1>Select a Product:<h1>
 		<cfquery 
 			name="productList"
@@ -22,10 +24,9 @@
 			        display="productname" 
 			        required="Yes" 
 			        multiple="No" 
-			        size="6"
+			        size="5"
 			        message="Please select a product before sumbitting form!"> 
 			    </cfselect> 
-			    <br>
 			    <br>
 			    <input type="Submit" value="Submit" name="submitButton">
 			</cfform>
@@ -107,5 +108,6 @@
 				<h1 class="error">Warning!  Each product must have quotes from at least three vendors.<h1>
 			</cfif>
 		</cfif>
+		<cfinclude template = "footer.cfm">
 	</body>
 </html>

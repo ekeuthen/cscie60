@@ -13,3 +13,11 @@ td, th {
 .error {
 	color: red;
 }
+.header {
+	border-style: solid;
+    border-width: medium;
+}
+.footer {
+	color: #484848;
+	font-size: medium;
+}

@@ -66,55 +66,25 @@
 					<h1>Orders for <cfoutput>#FORM.CUSTOMER#</cfoutput>:</h1>
 				    <table>
 				    	<tr>
-				    		<th>
-				    			Order #
-				    		</th>
-				    		<th>
-				    			Date
-				    		</th>
-				    		<th>
-				    			Item #
-				    		</th>
-				    		<th>
-				    			Product
-				    		</th>
-				    		<th>
-				    			Vendor
-				    		</th>
-				    		<th>
-				    			Quantity
-				    		</th>
-				    		<th>
-				    			Price ($)
-				    		</th>
+				    		<th>Order - Item</th>
+				    		<th>Date</th>
+				    		<th>Product</th>
+				    		<th>Vendor</th>
+				    		<th>Quantity</th>
+				    		<th>Price ($)</th>
 				    	</tr>
 				    	<cfoutput query="customerOrders">
 						    <tr>
-						    	<td>
-						    		#ORDERNO#
-						    	</td>
-						    	<td>
-						    		#DateFormat("#ORDERDATE#", "short")#
-						    	</td>
-						    	<td>
-						    		#ORDERITEMNO#
-						    	</td>
-						    	<td>
-						    		#PRODUCTNAME#
-						    	</td>
-						    	<td>
-						    		#VENDORNAME#
-						    	</td>
-						    	<td>
-						    		#QUANTITY#
-						    	</td>
-						    	<td>
-						    		#ITEMPRICE#
-						    	</td>
+						    	<td>#ORDERNO# - #ORDERITEMNO#</td>
+						    	<td>#DateFormat("#ORDERDATE#", "short")#</td>
+						    	<td>#PRODUCTNAME#</td>
+						    	<td>#VENDORNAME#</td>
+						    	<td>#QUANTITY#</td>
+						    	<td>#ITEMPRICE#</td>
 						    </tr>
 					    </cfoutput>
 				    </table>
-				    <h4>Click link to view details for a specific order item.</h4>
+				    <h4>Click link to update quantity and / or price details for a specific order item.</h4>
 			</cfif>
 		</cfif>
 		<cfinclude template = "footer.cfm">

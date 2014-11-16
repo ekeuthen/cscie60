@@ -79,33 +79,21 @@
 				</cfquery>
 			    <table>
 			    	<tr>
-			    		<th>
-			    			Vendor ID
-			    		</th>
-			    		<th>
-			    			Vendor Name
-			    		</th>
-			    		<th>
-			    			Price Quote ($)
-			    		</th>
+			    		<th>Vendor ID</th>
+			    		<th>Vendor Name</th>
+			    		<th>Price Quote ($)</th>
 			    	</tr>
 			    	<cfoutput query="productQuotes">
 					    <tr>
-					    	<td>
-					    		#VENDORID#
-					    	</td>
-					    	<td>
-					    		#VENDORNAME#
-					    	</td>
-					    	<td>
-					    		#ITEMPRICE#
-					    	</td>
+					    	<td>#VENDORID#</td>
+					    	<td>#VENDORNAME#</td>
+					    	<td>#ITEMPRICE#</td>
 					    </tr>
 				    </cfoutput>
 			    </table>
 			</cfif>
 			<cfif #numQuotes.QUOTES# LESS THAN 3>
-				<h1 class="error">Warning!  Each product must have quotes from at least three vendors.<h1>
+				<h1 class="error">Warning!  Each product must have quotes from at least three vendors.</h1>
 			</cfif>
 		</cfif>
 		<cfinclude template = "footer.cfm">

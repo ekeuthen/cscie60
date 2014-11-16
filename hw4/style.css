@@ -1,5 +1,6 @@
 body {
 	font-family: verdana, tahoma, helvetica, arial, sans-serif;
+	font-size: 14px;
 }
 table {
     border-collapse: collapse;
@@ -11,13 +12,16 @@ td, th {
     padding: 15px;
 }
 .error {
-	color: red;
+	color: #FF0000; /*red*/
+}
+.success {
+	color: #008000; /*green*/
 }
 .header {
 	border-style: solid;
     border-width: medium;
 }
 .footer {
-	color: #484848;
+	color: #484848; /*grey*/
 	font-size: medium;
 }

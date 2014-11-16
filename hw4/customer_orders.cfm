@@ -42,71 +42,80 @@
 					O.ORDERDATE as ORDERDATE,
 					OI.ORDERITEMNO as ORDERITEMNO,
 					P.PRODUCTNAME as PRODUCTNAME,
-					OI.VENDORID as VENDORID,
+					V.VENDORNAME as VENDORNAME,
 					OI.QUANTITY as QUANTITY,
 					OI.ITEMPRICE as ITEMPRICE
 				FROM 
 					TBORDER O,
 					TBORDERITEM OI,
 					TBPRODUCT P,
-					TBCUSTOMER C
+					TBCUSTOMER C,
+					TBVENDOR V
 				WHERE 
 					C.CUSTOMERID = O.CUSTOMERID
 					AND O.ORDERNO = OI.ORDERNO
 					AND OI.PRODUCTID = P.PRODUCTID
+					AND OI.VENDORID = V.VENDORID
 					AND CUSTOMERNAME = '#FORM.CUSTOMER#'
+				ORDER BY
+					ORDERNO, ORDERITEMNO
 			</cfquery>
-			<h1>Customer Orders:</h1>
-		    <table>
-		    	<tr>
-		    		<th>
-		    			Order Number
-		    		</th>
-		    		<th>
-		    			Order Date
-		    		</th>
-		    		<th>
-		    			Order Item Number
-		    		</th>
-		    		<th>
-		    			Order Product Name
-		    		</th>
-		    		<th>
-		    			Order Vendor ID
-		    		</th>
-		    		<th>
-		    			Quantity
-		    		</th>
-		    		<th>
-		    			Item Price
-		    		</th>
-		    	</tr>
-		    	<cfoutput query="customerOrders">
-				    <tr>
-				    	<td>
-				    		#ORDERNO#
-				    	</td>
-				    	<td>
-				    		#ORDERDATE#
-				    	</td>
-				    	<td>
-				    		#ORDERITEMNO#
-				    	</td>
-				    	<td>
-				    		#PRODUCTNAME#
-				    	</td>
-				    	<td>
-				    		#QUANTITY#
-				    	</td>
-				    	<td>
-				    		#ITEMPRICE#
-				    	</td>
-				    	<td>
-				    		#ORDERITEMNO#
-				    	</td>
-				    </tr>
-			    </cfoutput>
-		    </table>
+			<cfif len(#customerOrders.ORDERNO#) IS 0>
+				<h1>Customer "<cfoutput>#FORM.CUSTOMER#</cfoutput>" has not yet placed any orders.</h1>
+				<cfelse>
+					<h1>Orders for <cfoutput>#FORM.CUSTOMER#</cfoutput>:</h1>
+				    <table>
+				    	<tr>
+				    		<th>
+				    			Order #
+				    		</th>
+				    		<th>
+				    			Date
+				    		</th>
+				    		<th>
+				    			Item #
+				    		</th>
+				    		<th>
+				    			Product
+				    		</th>
+				    		<th>
+				    			Vendor
+				    		</th>
+				    		<th>
+				    			Quantity
+				    		</th>
+				    		<th>
+				    			Price ($)
+				    		</th>
+				    	</tr>
+				    	<cfoutput query="customerOrders">
+						    <tr>
+						    	<td>
+						    		#ORDERNO#
+						    	</td>
+						    	<td>
+						    		#DateFormat("#ORDERDATE#", "short")#
+						    	</td>
+						    	<td>
+						    		#ORDERITEMNO#
+						    	</td>
+						    	<td>
+						    		#PRODUCTNAME#
+						    	</td>
+						    	<td>
+						    		#VENDORNAME#
+						    	</td>
+						    	<td>
+						    		#QUANTITY#
+						    	</td>
+						    	<td>
+						    		#ITEMPRICE#
+						    	</td>
+						    </tr>
+					    </cfoutput>
+				    </table>
+				    <h4>Click link to view details for a specific order item.</h4>
+			</cfif>
 		</cfif>
 		<cfinclude template = "footer.cfm">
 	</body>

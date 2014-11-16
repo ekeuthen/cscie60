@@ -29,8 +29,8 @@
 				TBVENDOR V,
 				TBCUSTOMER C
 			WHERE 
-				OI.ORDERNO = 2
-				AND OI.ORDERITEMNO ='01'
+				OI.ORDERNO = <cfqueryparam value="#Form.orderno#" CFSQLType="CF_SQL_NUMERIC">
+				AND OI.ORDERITEMNO = <cfqueryparam value="#Form.orderitemno#" CFSQLType="CF_SQL_CHAR">
 				AND O.ORDERNO = OI.ORDERNO
 				AND OI.PRODUCTID = P.PRODUCTID
 				AND OI.VENDORID = V.VENDORID
@@ -39,7 +39,7 @@
 		<h1>
 			Update order item details for:
 		</h1>
-		<cfform name="updateOrderItem" action="order_item_details.cfm" method="post">
+		<cfform>
 			<cfoutput query="orderDetails">
 				<table>
 					<tr>
@@ -64,26 +64,15 @@
 					</tr>
 					<tr>
 						<th>Quantity</th>
-						<td>
-							<table>
-								<tr>
-									<td>Existing: #QUANTITY#</td>
-									<td>New: <input name="quantity" type="number" step="1" min="0" value="#QUANTITY#" required="yes"></td></td>
-								</tr>
-							</table>
-						</td>	
+						<td><input name="quantity" type="number" step="1" min="0" value="#QUANTITY#" required="yes"></td>
 					</tr>
 					<tr>
 						<th>Price ($)</th>
-						<td>
-							<table>
-								<tr>
-									<td>Existing: #ITEMPRICE#</td>
-									<td>New: <input name="price" type="number" step=".01" min="0" value="#ITEMPRICE#" required="yes"></td></td>
-								</tr>
-							</table>
+						<td><input name="price" type="number" step=".01" min="0" value="#ITEMPRICE#" required="yes"></td>
 					</tr>
 				</table>
+				<input type="hidden" value="#ORDERNO#" name="orderno">
+		    	<input type="hidden" value="#ORDERITEMNO#" name="orderitemno">
 			</cfoutput>
 		    <br>
 			<input type="Submit" value="Submit" name="submitButton">
@@ -101,13 +90,12 @@
 	               QUANTITY ='#Form.quantity#',
 	               ITEMPRICE = '#Form.price#'
 	            WHERE 
-	            	ORDERNO = 2
-					AND ORDERITEMNO ='01'
+	            	ORDERNO = <cfqueryparam value="#Form.orderno#" CFSQLType="CF_SQL_NUMERIC">
+					AND ORDERITEMNO = <cfqueryparam value="#Form.orderitemno#" CFSQLType="CF_SQL_CHAR">
 	        </cfquery>
-	        <cflocation url="order_item_details.cfm">
 		</cfif>
 		<br>
-		<a href=http://cscie60.dce.harvard.edu/~ekeuthen/customer_orders.cfm>Return to customer / order list</a>
+		<a href="customer_orders.cfm">Return to customer / order list</a>
 		<cfinclude template = "footer.cfm">
 	</body>
 </html>

@@ -121,6 +121,18 @@ Insert into tbregion values (6, 'Pinkham Notch');
 Insert into tbregion values (7, 'Evans Notch');
 Insert into tbregion values (8, 'North Country');
 
+/* seed tbmountain */
+Insert into tbmountain values (1, 'Mount Lafayette', 5249, 2);
+Insert into tbmountain values (2, 'Mount Lincoln', 5089, 2);
+Insert into tbmountain values (3, 'Little Haystack', 4780, 2);
+
+/* seed tbtrip */
+Insert into tbtrip values (1, 'Franconia Ridge', 9, 'Moderate - Strenous', 3850, 0, 1);
+
+/*seed tbtriplocation*/
+Insert into tbtriplocation values (1, 1);
+Insert into tbtriplocation values (2, 1);
+Insert into tbtriplocation values (3, 1);
 
 -- ******************************************************
 --    VIEW TABLES

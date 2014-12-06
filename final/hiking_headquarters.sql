@@ -65,19 +65,19 @@ CREATE table tbmountain (
 CREATE table tbtrip (
     tripid          number(3,0)     not null
         constraint pk_trip primary key,
-    tripname        varchar(64),
+    tripname        varchar2(64),
     distance        number(3,1)
         constraint rg_distance check (distance > 0),
-    difficulty      varchar(32),
+    difficulty      varchar2(32),
     elevationgain   number (4,0),
-    fee             boolean,
-    dogsallowed     boolean
+    fee             number (1,0),
+    dogsallowed     number (1,0)
 );
 
 CREATE table tbphoto (
     photoid         number(4,0)     not null
-        contraint pk_photo primary key,
-    photourl        varchar(256)    not null
+        constraint pk_photo primary key,
+    photourl        varchar2(256)    not null
 );
 
 CREATE table tbreview (
@@ -86,9 +86,9 @@ CREATE table tbreview (
     tripid        number(3,0)       not null
         constraint fk_tripid_tbreview references tbtrip (tripid) on delete cascade,
     rating        number(1,2)       not null
-        constraint rg_rating check (rating > 0)
-        constraint rg_rating check (rating <= 5),
-    comment       varchar(256),
+        constraint rg_rating_min check (rating > 0)
+        constraint rg_rating_max check (rating <= 5),
+    comments      varchar2(256),
     createDate    date    default SYSDATE not null,
     modifyDate    date
 );
@@ -98,7 +98,6 @@ CREATE table tbtriplocation (
         constraint fk_mountainid_tbtriplocation references tbmountain (mountainid) on delete cascade,
     tripid        number(3,0)     not null
         constraint fk_tripid_tbtriplocation references tbtrip (tripid) on delete cascade,
-
         constraint pk_triplocation primary key (mountainid, tripid)
 );
 
@@ -121,10 +120,6 @@ Insert into tbregion values (5, 'Crawford Notch and Zealand Notch');
 Insert into tbregion values (6, 'Pinkham Notch');
 Insert into tbregion values (7, 'Evans Notch');
 Insert into tbregion values (8, 'North Country');
-
-
-/* inventory tborder */
-Insert into tborder values (1, to_date('10-10', 'mm-yy'), '1667');
 
 
 -- ******************************************************

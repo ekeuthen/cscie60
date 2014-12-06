@@ -1,0 +1,16 @@
+body {
+	font-family: verdana, tahoma, helvetica, arial, sans-serif;
+	font-size: 14px;
+}
+
+.header {
+	text-align: center;
+}
+.footer {
+	color: #484848; /*grey*/
+	font-size: medium;
+}
+div {
+	border-style: groove;
+	padding: 5px;
+}

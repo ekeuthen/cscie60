@@ -15,6 +15,13 @@
 			password="#Request.password#">
 			SELECT REGIONNAME FROM TBREGION ORDER BY REGIONNAME
 		</cfquery>
+		<cfquery 
+			name="difficultyList"
+			datasource="#Request.DSN#"
+			username="#Request.username#"
+			password="#Request.password#">
+			SELECT DISTINCT DIFFICULTY FROM TBTRIP ORDER BY DIFFICULTY
+		</cfquery>
 		<cfoutput>
 		<div>
 			<h3>
@@ -34,14 +41,11 @@
 				</cfselect>
 				<label for="difficulty">Maximum difficulty</label>
 				<cfselect name="difficulty"
+					query="difficultyList"
+					value="difficulty"
 					required="No"
 					mulitple="No"
 					id="difficulty">
-					<option value="easy">Easy</option>
-					<option value="easy_moderate">Easy - Moderate</option>
-					<option value="moderate">Moderate</option>
-					<option value="moderate_sterenuous">Moderate - Strenuous</option>
-					<option value="strenuous">Strenuous</option>
 				</cfselect>
 				<label for="region">Region</label>
 				<cfselect name="region"

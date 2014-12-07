@@ -124,15 +124,79 @@ Insert into tbregion values (8, 'North Country');
 /* seed tbmountain */
 Insert into tbmountain values (1, 'Mount Lafayette', 5249, 2);
 Insert into tbmountain values (2, 'Mount Lincoln', 5089, 2);
-Insert into tbmountain values (3, 'Little Haystack', 4780, 2);
+Insert into tbmountain values (3, 'Little Haystack Mountain', 4780, 2);
+Insert into tbmountain values (4, 'Welch Mountain', 2605, 1);
+Insert into tbmountain values (5, 'Dickey Mountain', 2634, 1);
+Insert into tbmountain values (6, 'Stinson Mountain', 2900, 1);
+Insert into tbmountain values (7, 'Mount Percival', 2212, 1);
+Insert into tbmountain values (8, 'Mount Morgan', 2220, 1);
+Insert into tbmountain values (9, 'Mount Osceola', 4340, 1);
+Insert into tbmountain values (10, 'Mount Moosilauke', 4820, 1);
+Insert into tbmountain values (11, 'South Peak', 4523, 1);
+Insert into tbmountain values (12, 'Bald Mountain', 2340, 2);
+Insert into tbmountain values (13, 'Artists'' Bluff', 2180, 2);
+Insert into tbmountain values (14, 'Mount Pemigewasset', 2557, 2);
+Insert into tbmountain values (15, 'Bald Peak', 2470, 2);
+Insert into tbmountain values (16, 'Hedgehog Mountain', 2532, 3);
+Insert into tbmountain values (17, 'Blackcap Mountain', 2369, 4);
+Insert into tbmountain values (18, 'Mount Willard', 2865, 5);
+Insert into tbmountain values (19, 'North Sugarloaf', 2310, 5);
+Insert into tbmountain values (20, 'Middle Sugarloaf', 2539, 5);
+Insert into tbmountain values (21, 'Mount Avalon', 3442, 5);
+Insert into tbmountain values (22, 'Mount Crawford', 3119, 5);
+Insert into tbmountain values (23, 'Pine Mountain', 2405, 6);
+Insert into tbmountain values (24, 'Mount Washington', 6289, 6);
+Insert into tbmountain values (25, 'Blueberry Mountain', 1781, 7);
+Insert into tbmountain values (26, 'Caribou Mountain', 2870, 7);
 
 /* seed tbtrip */
 Insert into tbtrip values (1, 'Franconia Ridge', 9, 'Moderate - Strenous', 3850, 0, 1);
+Insert into tbtrip values (2, 'Welch-Dickey Loop', 4.4, 'Moderate - Strenous', 1600, 1, 1);
+Insert into tbtrip values (3, 'Stinson Mountain Trail', 3.6, 'Moderate', 1400, 0, 1);
+Insert into tbtrip values (4, 'Percival-Morgan Loop', 5.2, 'Moderate', 1550, 0, 1);
+Insert into tbtrip values (5, 'Mount Osceola', 6.4, 'Strenuous', 2050, 1, 1);
+Insert into tbtrip values (6, 'Mount Moosilauke', 7.9, 'Strenuous', 2600, 0, 1);
+Insert into tbtrip values (7, 'Bald Mountain and Artists Bluff', 1.5, 'Moderate', 550, 0, 1);
+Insert into tbtrip values (8, 'Mount Pemigewasset Trail', 3.6, 'Moderate', 1300, 0, 1);
+Insert into tbtrip values (9, 'Bald Peak via the Mount Kinsman Trail', 4.6, 'Moderate', 1450, 0, 1);
+Insert into tbtrip values (10, 'UNH Trail to Hedgehog Mountain', 4.8, 'Moderate', 1450, 0, 1);
+Insert into tbtrip values (11, 'Black Cap', 2.2, 'Moderate', 650, 0, 1);
+Insert into tbtrip values (12, 'Mount Willard', 3.2, 'Moderate', 900, 0, 1);
+Insert into tbtrip values (13, 'Sugarloaf Trail', 3.4, 'Moderate', 900, 1, 1);
+Insert into tbtrip values (14, 'Mount Avalon', 3.7, 'Moderate', 1550, 0, 1);
+Insert into tbtrip values (15, 'Mount Crawford', 5, 'Strenuous', 2100, 0, 1);
+Insert into tbtrip values (16, 'Pine Mountain', 3.5, 'Moderate', 850, 0, 1);
+Insert into tbtrip values (17, 'Tuckerman Ravine and Mount Washington', 8.4, 'Strenuous', 4250, 0, 0);
+Insert into tbtrip values (18, 'Blueberry Mountain via Stone House Trail', 4.5, 'Moderate', 1150, 0, 1);
+Insert into tbtrip values (19, 'Caribou Mountain', 6.9, 'Strenuous', 1900, 0, 1);
 
 /*seed tbtriplocation*/
 Insert into tbtriplocation values (1, 1);
 Insert into tbtriplocation values (2, 1);
 Insert into tbtriplocation values (3, 1);
+Insert into tbtriplocation values (4, 2);
+Insert into tbtriplocation values (5, 2);
+Insert into tbtriplocation values (6, 3);
+Insert into tbtriplocation values (7, 4);
+Insert into tbtriplocation values (8, 4);
+Insert into tbtriplocation values (9, 5);
+Insert into tbtriplocation values (10, 6);
+Insert into tbtriplocation values (11, 6);
+Insert into tbtriplocation values (12, 7);
+Insert into tbtriplocation values (13, 7);
+Insert into tbtriplocation values (14, 8);
+Insert into tbtriplocation values (15, 9);
+Insert into tbtriplocation values (16, 10);
+Insert into tbtriplocation values (17, 11);
+Insert into tbtriplocation values (18, 12);
+Insert into tbtriplocation values (19, 13);
+Insert into tbtriplocation values (20, 13);
+Insert into tbtriplocation values (21, 14);
+Insert into tbtriplocation values (22, 15);
+Insert into tbtriplocation values (23, 16);
+Insert into tbtriplocation values (24, 17);
+Insert into tbtriplocation values (25, 18);
+Insert into tbtriplocation values (26, 19);
 
 -- ******************************************************
 --    VIEW TABLES

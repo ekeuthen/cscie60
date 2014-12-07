@@ -1,4 +1,4 @@
 <!-- HEADING -->
-<h1 class="header">
+<h1>
 	White Mountains Hiking Headquarters
 </h1>

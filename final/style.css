@@ -9,7 +9,7 @@ body {
 	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
-	width:80%;
+	width:70%;
 	margin: auto;
 	color: white;
 }
@@ -19,6 +19,7 @@ div {
 	padding-right: 5px;
 	padding-top: 5px;
 	padding-bottom: 5px;
+    background: rgba(70, 72, 82, 0.5);
 }
 
 input {
@@ -35,6 +36,7 @@ table {
     border-collapse: collapse;
     margin-left: auto;
     margin-right: auto;
+    background: rgba(70, 72, 82, 0.5);
 }
 table, td {
     border: 3px solid white;

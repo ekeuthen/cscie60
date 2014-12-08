@@ -39,7 +39,7 @@
 					<option value="8">8</option>
 					<option value="13">13</option>
 				</cfselect>
-				<label for="difficulty">Maximum difficulty</label>
+				<label for="difficulty">Difficulty</label>
 				<cfselect name="difficulty"
 					query="difficultyList"
 					value="difficulty"
@@ -52,9 +52,8 @@
 					query="regionList"
 					value="regionname"
 					required="No"
-					multiple="Yes"
-					id="region"
-					size="3">
+					multiple="No"
+					id="region">
 				</cfselect>
 				<br>
 				<input type="Submit" value="Find a hiking trip!" name="submit">
@@ -81,6 +80,9 @@
 					T.TRIPID = TL.TRIPID
 					AND TL.MOUNTAINID = M.MOUNTAINID
 					AND M.REGIONID = R.REGIONID
+					AND R.REGIONNAME = '#FORM.region#'
+					AND T.DIFFICULTY = '#FORM.difficulty#'
+					AND T.DISTANCE <= '#FORM.distance#'
 			</cfquery>
 			<h3>The following hiking trips meet the search criteria:</h3>
 		    <table>

@@ -84,23 +84,28 @@
 					AND T.DIFFICULTY = '#FORM.difficulty#'
 					AND T.DISTANCE <= '#FORM.distance#'
 			</cfquery>
-			<h3>The following hiking trips meet the search criteria:</h3>
-		    <table>
-		    	<tr>
-		    		<th>Trip</th>
-		    		<th>Distance (miles)</th>
-		    		<th>Difficulty</th>
-		    		<th>Region</th>
-		    	</tr>
-		    	<cfoutput query="hikeTripList">
-					<tr>
-					    <td>#TRIP#</td>
-					    <td>#DISTANCE#</td>
-					    <td>#DIFFICULTY#</td>
-					    <td>#REGION#</td>
-					</tr>
-			    </cfoutput>
-		    </table>
+			<cfif len(#hikeTripList.DIFFICULTY#) IS NOT 0> <!--Validate results are returned. -->
+				<h3>The following hiking trips meet the search criteria:</h3>
+			    <table>
+			    	<tr>
+			    		<th>Trip</th>
+			    		<th>Distance (miles)</th>
+			    		<th>Difficulty</th>
+			    		<th>Region</th>
+			    	</tr>
+			    	<cfoutput query="hikeTripList">
+						<tr>
+						    <td>#TRIP#</td>
+						    <td>#DISTANCE#</td>
+						    <td>#DIFFICULTY#</td>
+						    <td>#REGION#</td>
+						</tr>
+				    </cfoutput>
+			    </table>
+			</cfif>
+			<cfif len(#hikeTripList.DIFFICULTY#) IS  0> <!--Alert user if results are not returned. -->
+				<h3>There are no hiking trips that meet the search criteria.  Please try again.  </h3>
+			</cfif>
 		</cfif>
 		<cfinclude template = "footer.cfm">
 	</body>

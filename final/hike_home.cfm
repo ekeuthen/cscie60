@@ -96,12 +96,14 @@
 			    		<th>Region</th>
 			    	</tr>
 			    	<cfoutput query="hikeTripList">
-						<tr>
-						    <td>#TRIP#</td>
-						    <td>#DISTANCE#</td>
-						    <td>#DIFFICULTY#</td>
-						    <td>#REGION#</td>
-						</tr>
+			    		<cfform name="selectHike" action="hike_details.cfm" method="post">
+							<tr>
+							    <td><input type="submit" value="#TRIP#"></td>
+							    <td>#DISTANCE#</td>
+							    <td>#DIFFICULTY#</td>
+							    <td>#REGION#</td>
+							</tr>
+					</cfform>
 				    </cfoutput>
 			    </table>
 			</cfif>

@@ -33,6 +33,8 @@
 					id="distance"
 					required="No"
 					mulitple="No">
+					<option value="13">Any</option> 
+					<!--When user selects "Any" maximum distance the system will interpret this as 13 miles, as this is the max.  -->
 					<option value="2">2</option>
 					<option value="3">3</option>
 					<option value="5">5</option>

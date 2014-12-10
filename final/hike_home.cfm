@@ -98,7 +98,10 @@
 			    	<cfoutput query="hikeTripList">
 			    		<cfform name="selectHike" action="hike_details.cfm" method="post">
 							<tr>
-							    <td><input type="submit" value="#TRIP#"></td>
+							    <td>
+							    	<input type="submit" value="#TRIP#">
+							    	<input type="hidden" value="#TRIP#" name="hike">
+							    </td>
 							    <td>#DISTANCE#</td>
 							    <td>#DIFFICULTY#</td>
 							    <td>#REGION#</td>

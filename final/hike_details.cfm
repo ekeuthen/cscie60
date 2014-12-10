@@ -38,6 +38,7 @@
 				<td></td>
 			</tr>
 		</table>
+		<a href="hike_home.cfm">Return to White Mountain Hiking Headquarters home.</a>
 		<cfinclude template = "footer.cfm">
 	</body>
 </html>

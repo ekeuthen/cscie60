@@ -4,7 +4,7 @@ html {
    	background-repeat: no-repeat;
 }
 
-body {
+body, a {
 	font-family: verdana, tahoma, helvetica, arial, sans-serif;
 	font-size: 16px;
 	font-weight: bold;

@@ -8,37 +8,39 @@
 	</head>
 	<body>
 		<cfinclude template = "header.cfm">
-		<h3>
-			Hike Details: 
-			<cfoutput>#form.hike#</cfoutput>
-		</h3>
-		<table>
-			<tr>
-				<td>Distance:</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Difficulty:</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Elevation Gain:</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Fee:</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Parking:</td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>Dogs Allowed:</td>
-				<td></td>
-			</tr>
-		</table>
-		<a href="hike_home.cfm">Return to White Mountain Hiking Headquarters home.</a>
+		<cfif isDefined("form.hike")>
+			<h3>
+				Hike Details: 
+				<cfoutput>#form.hike#</cfoutput>
+			</h3>
+			<table>
+				<tr>
+					<td>Distance:</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Difficulty:</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Elevation Gain:</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Fee:</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Parking:</td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Dogs Allowed:</td>
+					<td></td>
+				</tr>
+			</table>
+		</cfif>
+			<a href="hike_home.cfm">Please return to White Mountain Hiking Headquarters home to view details for another hike.</a>
 		<cfinclude template = "footer.cfm">
 	</body>
 </html>

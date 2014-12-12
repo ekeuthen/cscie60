@@ -18,18 +18,52 @@
 				datasource="#Request.DSN#"
 				username="#Request.username#"
 				password="#Request.password#">
-				SELECT 
+				SELECT DISTINCT
 					T.DISTANCE AS DISTANCE,
 					T.DIFFICULTY AS DIFFICULTY,
 					T.ELEVATIONGAIN AS ELEVATIONGAIN,
 					T.FEE AS FEE,
-					T.DOGSALLOWED AS DOGS
+					T.DOGSALLOWED AS DOGS,
+					R.REGIONNAME AS REGION
 				FROM 
-					TBTRIP T
-				WHERE T.TRIPNAME = '#form.hike#'
+					TBTRIP T,
+					TBREGION R,
+					TBMOUNTAIN M,
+					TBTRIPLOCATION L
+				WHERE 
+					T.TRIPNAME = '#form.hike#'
+					AND T.TRIPID = L.TRIPID
+					AND L.MOUNTAINID = M.MOUNTAINID
+					AND M.REGIONID = R.REGIONID
 			</cfquery>
+			<cfquery 
+				name="mountainDetails"
+				datasource="#Request.DSN#"
+				username="#Request.username#"
+				password="#Request.password#">
+				SELECT DISTINCT
+					M.MOUNTAINNAME AS MOUNTAIN,
+					M.HEIGHT AS HEIGHT
+				FROM 
+					TBTRIP T,
+					TBREGION R,
+					TBMOUNTAIN M,
+					TBTRIPLOCATION L
+				WHERE 
+					T.TRIPNAME = '#form.hike#'
+					AND T.TRIPID = L.TRIPID
+					AND L.MOUNTAINID = M.MOUNTAINID
+			</cfquery>
+			<h3>
+				Mountains:
+				<cfoutput query = "mountainDetails"> #MOUNTAIN# (#HEIGHT#) </cfoutput>
+			</h3>
 			<cfoutput query="hikeDetails">
 				<table>
+					<tr>
+						<td>Region:</td>
+						<td>#REGION#</td>
+					</tr>
 					<tr>
 						<td>Distance:</td>
 						<td>#DISTANCE#</td>
@@ -44,15 +78,28 @@
 					</tr>
 					<tr>
 						<td>Fee:</td>
-						<td>#FEE#</td>
+						<td>
+							<cfif #FEE# is 1>
+								Yes
+								<cfelse>
+									No
+							</cfif>
+						</td>
 					</tr>
 					<tr>
 						<td>Dogs Allowed:</td>
-						<td>#DOGS#</td>
+						<td>
+							<cfif #DOGS# is 1>
+								Yes
+								<cfelse>
+									No
+							</cfif>
+						</td>
 					</tr>
 				</table>
 			</cfoutput>
 		</cfif>
+			<br>
 			<a href="hike_home.cfm">Please return to White Mountain Hiking Headquarters home to view details for another hike.</a>
 		<cfinclude template = "footer.cfm">
 	</body>

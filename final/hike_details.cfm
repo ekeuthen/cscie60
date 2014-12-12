@@ -115,11 +115,20 @@
 				<cfoutput query="ratingDetails">
 					<tr>
 						<td>Average Rating:</td>
-						<cfif #COUNT_REVIEWS# LESS THAN 1>
-							<td>Not yet rated! (Add a review.)</td>
-							<cfelse>
-								<td>#AVE_RATING# / 5 (See & add review details.)</td>
-						</cfif>
+						<cfform name="reviews" action="hike_reviews.cfm" method="post">
+							<input type="hidden" value="#form.hike#" name="hike">
+							<cfif #COUNT_REVIEWS# LESS THAN 1>
+								<td>
+									Not yet rated!
+									<input type="submit" value="Add a review">
+								</td>
+								<cfelse>
+									<td>
+										#AVE_RATING# / 5 
+										<input type="submit" value="See & add review details">
+									</td>
+							</cfif>
+						</cfform>
 					</tr>
 				</cfoutput>
 			</table>

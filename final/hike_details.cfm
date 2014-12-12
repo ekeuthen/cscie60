@@ -56,16 +56,16 @@
 			</cfquery>
 			<h3>
 				Mountains:
-				<cfoutput query = "mountainDetails"> #MOUNTAIN# (#HEIGHT#) </cfoutput>
+				<cfoutput query = "mountainDetails"> #MOUNTAIN# (#HEIGHT#') </cfoutput>
 			</h3>
-			<cfoutput query="hikeDetails">
-				<table>
+			<table>
+				<cfoutput query="hikeDetails">
 					<tr>
 						<td>Region:</td>
 						<td>#REGION#</td>
 					</tr>
 					<tr>
-						<td>Distance:</td>
+						<td>Distance (miles):</td>
 						<td>#DISTANCE#</td>
 					</tr>
 					<tr>
@@ -73,7 +73,7 @@
 						<td>#DIFFICULTY#</td>
 					</tr>
 					<tr>
-						<td>Elevation Gain:</td>
+						<td>Elevation Gain (feet):</td>
 						<td>#ELEVATIONGAIN#</td>
 					</tr>
 					<tr>
@@ -96,8 +96,12 @@
 							</cfif>
 						</td>
 					</tr>
-				</table>
-			</cfoutput>
+					<tr>
+						<td>Reviews:</td>
+						<td></td>
+					</tr>
+				</cfoutput>
+			</table>
 		</cfif>
 			<br>
 			<a href="hike_home.cfm">Please return to White Mountain Hiking Headquarters home to view details for another hike.</a>

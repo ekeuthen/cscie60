@@ -85,7 +85,7 @@ CREATE table tbreview (
         constraint pk_review primary key,
     tripid        number(3,0)       not null
         constraint fk_tripid_tbreview references tbtrip (tripid) on delete cascade,
-    rating        number(1,2)       not null
+    rating        number(2,1)       not null
         constraint rg_rating_min check (rating > 0)
         constraint rg_rating_max check (rating <= 5),
     comments      varchar2(256),

@@ -27,7 +27,7 @@
 				<h3>
 				</h3>
 			</cfoutput>
-			<div>
+			<div class="visible">
 				<h3>
 					Add a review:
 				</h3>

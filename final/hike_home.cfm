@@ -23,7 +23,7 @@
 			SELECT DISTINCT DIFFICULTY FROM TBTRIP ORDER BY DIFFICULTY
 		</cfquery>
 		<cfoutput>
-		<div>
+		<div class="visible">
 			<h3>
 				Select your hiking trip criteria:
 			</h3>

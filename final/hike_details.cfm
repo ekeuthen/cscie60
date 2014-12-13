@@ -76,69 +76,77 @@
 				Mountains:
 				<cfoutput query = "mountainDetails"> #MOUNTAIN# (#HEIGHT#') </cfoutput>
 			</h3>
-			<table>
-				<cfoutput query="hikeDetails">
-					<tr>
-						<td>Region:</td>
-						<td>#REGION#</td>
-					</tr>
-					<tr>
-						<td>Distance (miles):</td>
-						<td>#DISTANCE#</td>
-					</tr>
-					<tr>
-						<td>Difficulty:</td>
-						<td>#DIFFICULTY#</td>
-					</tr>
-					<tr>
-						<td>Elevation Gain (feet):</td>
-						<td>#ELEVATIONGAIN#</td>
-					</tr>
-					<tr>
-						<td>Fee:</td>
-						<td>
-							<cfif #FEE# is 1>
-								Yes
-								<cfelse>
-									No
-							</cfif>
-						</td>
-					</tr>
-					<tr>
-						<td>Dogs Allowed:</td>
-						<td>
-							<cfif #DOGS# is 1>
-								Yes
-								<cfelse>
-									No
-							</cfif>
-						</td>
-					</tr>
-				</cfoutput>
-				<tr>
-					<td>Average Rating:</td>
-					<cfoutput>
-						<cfform name="reviews" action="hike_reviews.cfm" method="post">
-							<input type="hidden" value="#form.hike#" name="hike">
-							<input type="hidden" value="#hikeDetails.TRIPID#" name="tripid">
-							<cfif len(#ratingDetails.TRIPID#) IS NOT 0>
+			<div>
+				<div class="left">
+					<table>
+						<cfoutput query="hikeDetails">
+							<tr>
+								<td>Region:</td>
+								<td>#REGION#</td>
+							</tr>
+							<tr>
+								<td>Distance (miles):</td>
+								<td>#DISTANCE#</td>
+							</tr>
+							<tr>
+								<td>Difficulty:</td>
+								<td>#DIFFICULTY#</td>
+							</tr>
+							<tr>
+								<td>Elevation Gain (feet):</td>
+								<td>#ELEVATIONGAIN#</td>
+							</tr>
+							<tr>
+								<td>Fee:</td>
 								<td>
-									#ROUND(ratingDetails.AVE_RATING)#/5
-									<input type="submit" value="See & add review details">
+									<cfif #FEE# is 1>
+										Yes
+										<cfelse>
+											No
+									</cfif>
 								</td>
-								<cfelse>
-									<td>
-										Not yet rated!
-										<input type="submit" value="Add a review">
-									</td>
-							</cfif>
-						</cfform>
-					</cfoutput>
-				</tr>
-			</table>
-		</cfif>
+							</tr>
+							<tr>
+								<td>Dogs Allowed:</td>
+								<td>
+									<cfif #DOGS# is 1>
+										Yes
+										<cfelse>
+											No
+									</cfif>
+								</td>
+							</tr>
+						</cfoutput>
+						<tr>
+							<td>Average Rating:</td>
+							<cfoutput>
+								<cfform name="reviews" action="hike_reviews.cfm" method="post">
+									<input type="hidden" value="#form.hike#" name="hike">
+									<input type="hidden" value="#hikeDetails.TRIPID#" name="tripid">
+									<cfif len(#ratingDetails.TRIPID#) IS NOT 0>
+										<td>
+											#ROUND(ratingDetails.AVE_RATING)#/5
+											<input type="submit" value="See & add review details">
+										</td>
+										<cfelse>
+											<td>
+												Not yet rated!
+												<input type="submit" value="Add a review">
+											</td>
+									</cfif>
+								</cfform>
+							</cfoutput>
+						</tr>
+					</table>
+				</div>
+				<div class="right">
+					<img src="franconia_ridge.jpg" alt="Franconia Ridge" height="250" width="490">
+				</div>
+			</div>
 			<br>
-			<a href="hike_home.cfm">Please return to White Mountain Hiking Headquarters home to view details for another hike.</a>
+		</cfif>
+		<br><br>
+		<a href="hike_home.cfm">Please return to White Mountain Hiking Headquarters home to view details for another hike.</a>
 		<cfinclude template = "footer.cfm">
 	</body>
 </html>

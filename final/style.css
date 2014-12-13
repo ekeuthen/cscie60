@@ -14,14 +14,6 @@ body, a {
 	color: white;
 }
 
-div {
-	border-style: groove;
-	padding-right: 5px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-    background: rgba(70, 72, 82, 0.5);
-}
-
 input {
 	font-size: 19px;
 	margin: 10px;
@@ -38,19 +30,36 @@ table {
     margin-right: auto;
     background: rgba(70, 72, 82, 0.5);
 }
-table, td {
-    border: 3px solid white;
+table{
+    border: 15px solid white;
 }
 td, th {
-    padding: 15px;
+    padding: 5px;
+    border: 3px solid white;
 }
 
-th {
-	border: 6px solid white;
+img {
+	border: 15px solid white;
 }
 
 .error {
 	color: #D6317E; /*maroon*/
+}
+
+.right {
+	float: right;
+}
+
+.left {
+	float: left;
+}
+
+.visible {
+	border-style: groove;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+    background: rgba(70, 72, 82, 0.5);
 }
 
 #footer {

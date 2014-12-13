@@ -56,3 +56,7 @@ th {
 #footer {
 	font-size: medium;
 }
+
+#reviewList {
+	max-width: 300px;
+}

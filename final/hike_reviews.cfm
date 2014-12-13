@@ -8,7 +8,20 @@
 	</head>
 	<body>
 		<cfinclude template = "header.cfm">
-		<cfif isDefined("form.hike")>
+		<cfif isDefined("form.submit")>
+			<cfquery 
+				name="addComment"
+				datasource="#Request.DSN#"
+				username="#Request.username#"
+				password="#Request.password#">
+				INSERT INTO TBREVIEW (TRIPID, RATING, COMMENTS) 
+				VALUES (
+					'#form.tripid#', 
+					'#form.rating#', 
+					<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value='#form.comment#'>)
+			</cfquery>
+		</cfif>
+		<cfif isDefined("form.tripid")>
 			<cfoutput>
 					Hike Reviews: #form.hike#
 				<h3>
@@ -19,7 +32,7 @@
 					Add a review:
 				</h3>
 				<cfoutput>
-					<cfform name="addReview" action="update_action.cfm" method="post">
+					<cfform name="addReview" action="hike_reviews.cfm" method="post">
 						<label for="rating">Rating (5 = awesome)</label>
 						<cfselect name="rating"
 							id="rating"
@@ -36,6 +49,7 @@
 						</textarea>
 						<br>
 						<input name="tripid" id="tripid" type="hidden" value="#form.tripid#">
+						<input name="hike" id="hike" type="hidden" value="#form.hike#">
 						<input type="Submit" value="Submit Review!" name="submit">
 					</cfform>
 				</cfoutput>
@@ -55,7 +69,7 @@
 				WHERE 
 					R.TRIPID = '#form.tripid#'
 				ORDER BY
-					R.CREATEDATE
+					R.CREATEDATE DESC
 			</cfquery>
 			<cfif len(#reviewDetails.RATING#) IS NOT 0>
 				<table id="reviewList">

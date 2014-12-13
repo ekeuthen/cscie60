@@ -41,6 +41,7 @@ DROP table tbregion purge;
 -- Note:  Issue the appropiate commands to drop sequences
 -- ******************************************************
 
+DROP sequence seq_review;
 
 -- ******************************************************
 --    CREATE TABLES
@@ -101,11 +102,13 @@ CREATE table tbtriplocation (
         constraint pk_triplocation primary key (mountainid, tripid)
 );
 
-
 -- ******************************************************
 --    CREATE SEQUENCES
 -- ******************************************************
 
+CREATE sequence seq_review
+    increment by 1
+    start with 1;
      
 -- ******************************************************
 --    POPULATE TABLES
@@ -211,7 +214,6 @@ SELECT * FROM tbtrip;
 SELECT * FROM tbreview;
 SELECT * FROM tbphoto;
 
-
 -- ******************************************************
 --    QUALITY CONTROLS
 --
@@ -227,6 +229,20 @@ SELECT * FROM tbphoto;
 --
 -- ******************************************************
 
+CREATE or REPLACE trigger TR_new_review_IN
+/* trigger executes before an insert into the review table */
+before insert on tbreview
+/* trigger executes for each row being inserted */
+for each row
+/* begin a PL/SQL block */
+begin
+    /* get the value of the PK sequence */
+    SELECT seq_review.nextval
+        /*insert them into the :NEW row columns */
+        into :new.reviewId
+        FROM dual;
+end TR_new_review_IN;
+/
 
 -- ******************************************************
 --    END SESSION

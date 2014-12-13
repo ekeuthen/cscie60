@@ -9,8 +9,8 @@
 			datasource="#Request.DSN#"
 			username="#Request.username#"
 			password="#Request.password#">
-			INSERT INTO TBREVIEW (REVIEWID, TRIPID, RATING, COMMENTS) 
-			VALUES ('4', 
+			INSERT INTO TBREVIEW (TRIPID, RATING, COMMENTS) 
+			VALUES (
 				'#form.tripid#', 
 				'#form.rating#', 
 				<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value='#form.comment#'>)

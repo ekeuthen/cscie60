@@ -59,7 +59,8 @@
 				datasource="#Request.DSN#"
 				username="#Request.username#"
 				password="#Request.password#">
-				SELECT 
+				SELECT
+					T.TRIPID AS TRIPID, 
   					COUNT (V.REVIEWID) AS COUNT_REVIEWS,
   					AVG (V.RATING) AS AVE_RATING
 				FROM 
@@ -68,6 +69,7 @@
 				WHERE 
 				  	T.TRIPNAME = '#form.hike#'
 				  	AND T.TRIPID = V.TRIPID
+				 GROUP BY T.TRIPID
 			</cfquery>
 			<h3>
 				Mountains:
@@ -117,6 +119,7 @@
 						<td>Average Rating:</td>
 						<cfform name="reviews" action="hike_reviews.cfm" method="post">
 							<input type="hidden" value="#form.hike#" name="hike">
+							<input type="hidden" value="#TRIPID#" name="tripid">
 							<cfif #COUNT_REVIEWS# LESS THAN 1>
 								<td>
 									Not yet rated!

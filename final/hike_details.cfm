@@ -123,7 +123,7 @@
 							<input type="hidden" value="#hikeDetails.TRIPID#" name="tripid">
 							<cfif len(#ratingDetails.TRIPID#) IS NOT 0>
 								<td>
-									#ratingDetails.AVE_RATING# / 5 
+									#ROUND(ratingDetails.AVE_RATING)#/5
 									<input type="submit" value="See & add review details">
 								</td>
 								<cfelse>

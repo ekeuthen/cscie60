@@ -57,32 +57,34 @@
 				ORDER BY
 					R.CREATEDATE
 			</cfquery>
-			<table id="reviewList">
-				<tr>
-					<th>
-						Date
-					</th>
-					<th>
-						Rating
-					</th>
-					<th>
-						Comment
-					</th>
-				</tr>
-				<cfoutput query="reviewDetails">
+			<cfif len(#reviewDetails.RATING#) IS NOT 0>
+				<table id="reviewList">
 					<tr>
-						<td>
-							#DateFormat("#CDATE#", "short")#
-						</td>
-						<td>
-							#RATING#
-						</td>
-						<td>
-							#COMMENTs#
-						</td>
-					<tr>
-				</cfoutput>
-			</table>
+						<th>
+							Date
+						</th>
+						<th>
+							Rating
+						</th>
+						<th>
+							Comment
+						</th>
+					</tr>
+					<cfoutput query="reviewDetails">
+						<tr>
+							<td>
+								#DateFormat("#CDATE#", "short")#
+							</td>
+							<td>
+								#RATING#
+							</td>
+							<td>
+								#COMMENTs#
+							</td>
+						<tr>
+					</cfoutput>
+				</table>
+			</cfif>
 		</cfif>
 		<br>
 		<a href="hike_home.cfm">Please return to White Mountain Hiking Headquarters home to view details for another hike.</a>

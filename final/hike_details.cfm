@@ -24,7 +24,8 @@
 					T.ELEVATIONGAIN AS ELEVATIONGAIN,
 					T.FEE AS FEE,
 					T.DOGSALLOWED AS DOGS,
-					R.REGIONNAME AS REGION
+					R.REGIONNAME AS REGION,
+					T.TRIPID AS TRIPID
 				FROM 
 					TBTRIP T,
 					TBREGION R,
@@ -114,26 +115,26 @@
 						</td>
 					</tr>
 				</cfoutput>
-				<cfoutput query="ratingDetails">
-					<tr>
-						<td>Average Rating:</td>
+				<tr>
+					<td>Average Rating:</td>
+					<cfoutput>
 						<cfform name="reviews" action="hike_reviews.cfm" method="post">
 							<input type="hidden" value="#form.hike#" name="hike">
-							<input type="hidden" value="#TRIPID#" name="tripid">
-							<cfif #COUNT_REVIEWS# LESS THAN 1>
+							<input type="hidden" value="#hikeDetails.TRIPID#" name="tripid">
+							<cfif len(#ratingDetails.TRIPID#) IS NOT 0>
 								<td>
-									Not yet rated!
-									<input type="submit" value="Add a review">
+									#ratingDetails.AVE_RATING# / 5 
+									<input type="submit" value="See & add review details">
 								</td>
 								<cfelse>
 									<td>
-										#AVE_RATING# / 5 
-										<input type="submit" value="See & add review details">
+										Not yet rated!
+										<input type="submit" value="Add a review">
 									</td>
 							</cfif>
 						</cfform>
-					</tr>
-				</cfoutput>
+					</cfoutput>
+				</tr>
 			</table>
 		</cfif>
 			<br>

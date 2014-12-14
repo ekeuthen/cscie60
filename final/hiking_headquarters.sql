@@ -111,6 +111,29 @@ CREATE table tbtriplocation (
 CREATE sequence seq_review
     increment by 1
     start with 1;
+
+
+-- ******************************************************
+--    
+-- CREATE TRIGGERS
+--
+-- ******************************************************
+
+CREATE or REPLACE trigger TR_new_review_IN
+/* trigger executes before an insert into the review table */
+before insert on tbreview
+/* trigger executes for each row being inserted */
+for each row
+/* begin a PL/SQL block */
+begin
+    /* get the value of the PK sequence */
+    SELECT seq_review.nextval
+        /*insert them into the :NEW row columns */
+        into :new.reviewId
+        FROM dual;
+end TR_new_review_IN;
+/
+
      
 -- ******************************************************
 --    POPULATE TABLES
@@ -224,6 +247,13 @@ Insert into tbphoto values (17, 17, '7.JPG');
 Insert into tbphoto values (18, 18, '8.JPG');
 Insert into tbphoto values (19, 19, '9.JPG');
 
+/*seed tbreviews with sample reviews*/
+INSERT INTO TBREVIEW (TRIPID, RATING) VALUES (17, 5);
+INSERT INTO TBREVIEW (TRIPID, RATING) VALUES (17, 4);
+INSERT INTO TBREVIEW (TRIPID, RATING) VALUES (14, 5);
+INSERT INTO TBREVIEW (TRIPID, RATING) VALUES (2, 3);
+INSERT INTO TBREVIEW (TRIPID, RATING) VALUES (6, 5);
+INSERT INTO TBREVIEW (TRIPID, RATING) VALUES (11, 4);
 
 -- ******************************************************
 --    VIEW TABLES
@@ -246,27 +276,6 @@ SELECT * FROM tbphoto;
 --        *) Column constraints
 -- ******************************************************
 
-
--- ******************************************************
---    
--- CREATE TRIGGERS
---
--- ******************************************************
-
-CREATE or REPLACE trigger TR_new_review_IN
-/* trigger executes before an insert into the review table */
-before insert on tbreview
-/* trigger executes for each row being inserted */
-for each row
-/* begin a PL/SQL block */
-begin
-    /* get the value of the PK sequence */
-    SELECT seq_review.nextval
-        /*insert them into the :NEW row columns */
-        into :new.reviewId
-        FROM dual;
-end TR_new_review_IN;
-/
 
 -- ******************************************************
 --    END SESSION

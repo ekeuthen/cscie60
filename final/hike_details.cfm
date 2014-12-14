@@ -38,7 +38,7 @@
 					AND T.TRIPID = L.TRIPID
 					AND L.MOUNTAINID = M.MOUNTAINID
 					AND M.REGIONID = R.REGIONID
-					AND T.TRIPID = P.TRIPID
+					AND T.TRIPID = P.TRIPID(+)
 			</cfquery>
 			<cfquery 
 				name="mountainDetails"
@@ -144,7 +144,11 @@
 				</span>
 				<span class="right">
 					<cfoutput query="hikeDetails">
-						<img src="#PHOTO#" alt="white mountains hike photo" height="250" width="480">
+						<cfif len(#PHOTO#) IS NOT 0>
+							<img src="#PHOTO#" alt="white mountains hike photo" height="250" width="480">
+							<cfelse>
+								<img src="#PHOTO#" alt="sorry - no photo yet!" height="250" width="480">
+						</cfif>
 					</cfoutput>
 				</span>
 			</span>

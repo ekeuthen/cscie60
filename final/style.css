@@ -42,6 +42,31 @@ img {
 	border: 15px solid white;
 }
 
+ul {
+    float: left;
+    width: 100%;
+    padding: 0;
+    margin: 10px;
+    list-style-type: none;
+}
+
+.menu {
+    width: 6em;
+    text-decoration: none;
+    color: #33CCFF;
+    background-color: white;
+    padding: 5px;
+    border-right: 1px solid white;
+}
+
+a:hover {
+    background-color: gray;
+}
+
+li {
+    display: inline;
+}
+
 .error {
 	color: #D6317E; /*maroon*/
 }
@@ -64,6 +89,7 @@ img {
 
 #footer {
 	font-size: medium;
+	clear: both;
 }
 
 #reviewList {

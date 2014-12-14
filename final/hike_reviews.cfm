@@ -99,9 +99,10 @@
 					</cfoutput>
 				</table>
 			</cfif>
+			<cfelse>
+				<br>
+				<a href="hike_home.cfm">Please return to White Mountain Hiking Headquarters home to select a hike.</a>
 		</cfif>
-		<br>
-		<a href="hike_home.cfm">Please return to White Mountain Hiking Headquarters home to view details for another hike.</a>
 		<cfinclude template = "footer.cfm">
 	</body>
 </html>

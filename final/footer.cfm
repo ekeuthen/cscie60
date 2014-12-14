@@ -1,5 +1,5 @@
 <!-- FOOTER -->
-
+<br>
 <p id="footer">
 	Site and photos developed by Emily Keuthen for CSCIE-60 Final Project.  
 	<br>

@@ -87,6 +87,15 @@ li {
     background: rgba(70, 72, 82, 0.5);
 }
 
+.link {
+	background:none!important;
+    border:none; 
+    padding:0!important;
+    border-bottom:1px solid white;
+    color:white;
+    cursor: pointer;
+}
+
 #footer {
 	font-size: medium;
 	clear: both;

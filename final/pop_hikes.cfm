@@ -31,10 +31,16 @@
 				<th>Average Rating</th>
 			</tr>
 			<cfoutput query="popHikes">
-				<tr>
-					<td>#TRIP#</td>
-					<td>#AVG_RATING#</td>
-				</tr>
+
+				<cfform name="selectHike" action="hike_details.cfm" method="post">
+					<tr>
+					    <td>
+					    	<input type="submit" value="#TRIP#" class="link">
+					    	<input type="hidden" value="#TRIP#" name="hike">
+					    </td>
+					    <td>#AVG_RATING#</td>
+					</tr>
+				</cfform>
 			</cfoutput>
 		</table>
 		<cfinclude template = "footer.cfm">

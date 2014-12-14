@@ -75,7 +75,7 @@
 				  	AND T.TRIPID = V.TRIPID
 				 GROUP BY T.TRIPID
 			</cfquery>
-			<h3>
+			<h3 class="visible">
 				Mountains:
 				<cfoutput query = "mountainDetails"> #MOUNTAIN# (#HEIGHT#') </cfoutput>
 			</h3>
@@ -129,12 +129,12 @@
 									<cfif len(#ratingDetails.TRIPID#) IS NOT 0>
 										<td>
 											#ROUND(ratingDetails.AVE_RATING)#/5
-											<input type="submit" value="See & add review details">
+											<input type="submit" value="See & add review details" class="link">
 										</td>
 										<cfelse>
 											<td>
 												Not yet rated!
-												<input type="submit" value="Add a review">
+												<input type="submit" value="Add a review" class="link">
 											</td>
 									</cfif>
 								</cfform>

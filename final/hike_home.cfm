@@ -101,14 +101,14 @@
 			    		<cfform name="selectHike" action="hike_details.cfm" method="post">
 							<tr>
 							    <td>
-							    	<input type="submit" value="#TRIP#">
+							    	<input type="submit" value="#TRIP#" class="link">
 							    	<input type="hidden" value="#TRIP#" name="hike">
 							    </td>
 							    <td>#DISTANCE#</td>
 							    <td>#DIFFICULTY#</td>
 							    <td>#REGION#</td>
 							</tr>
-					</cfform>
+						</cfform>
 				    </cfoutput>
 			    </table>
 			</cfif>

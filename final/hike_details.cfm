@@ -25,17 +25,20 @@
 					T.FEE AS FEE,
 					T.DOGSALLOWED AS DOGS,
 					R.REGIONNAME AS REGION,
-					T.TRIPID AS TRIPID
+					T.TRIPID AS TRIPID,
+					P.PHOTOURL AS PHOTO
 				FROM 
 					TBTRIP T,
 					TBREGION R,
 					TBMOUNTAIN M,
-					TBTRIPLOCATION L
+					TBTRIPLOCATION L,
+					TBPHOTO P
 				WHERE 
 					T.TRIPNAME = '#form.hike#'
 					AND T.TRIPID = L.TRIPID
 					AND L.MOUNTAINID = M.MOUNTAINID
 					AND M.REGIONID = R.REGIONID
+					AND T.TRIPID = P.TRIPID
 			</cfquery>
 			<cfquery 
 				name="mountainDetails"
@@ -76,8 +79,8 @@
 				Mountains:
 				<cfoutput query = "mountainDetails"> #MOUNTAIN# (#HEIGHT#') </cfoutput>
 			</h3>
-			<div>
-				<div class="left">
+			<span>
+				<span class="left">
 					<table>
 						<cfoutput query="hikeDetails">
 							<tr>
@@ -138,11 +141,13 @@
 							</cfoutput>
 						</tr>
 					</table>
-				</div>
-				<div class="right">
-					<img src="franconia_ridge.jpg" alt="Franconia Ridge" height="250" width="490">
-				</div>
-			</div>
+				</span>
+				<span class="right">
+					<cfoutput query="hikeDetails">
+						<img src="#PHOTO#" alt="white mountains hike photo" height="250" width="480">
+					</cfoutput>
+				</span>
+			</span>
 			<br>
 		</cfif>
 		<br><br>

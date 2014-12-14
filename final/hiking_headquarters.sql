@@ -78,6 +78,8 @@ CREATE table tbtrip (
 CREATE table tbphoto (
     photoid         number(4,0)     not null
         constraint pk_photo primary key,
+    tripid        number(3,0)       not null
+        constraint fk_tripid_tbphoto references tbtrip (tripid) on delete cascade,
     photourl        varchar2(256)    not null
 );
 
@@ -200,6 +202,28 @@ Insert into tbtriplocation values (23, 16);
 Insert into tbtriplocation values (24, 17);
 Insert into tbtriplocation values (25, 18);
 Insert into tbtriplocation values (26, 19);
+
+/*seed tbphotos*/
+Insert into tbphoto values (1, 1, '1.JPG');
+Insert into tbphoto values (2, 2, '2.JPG');
+Insert into tbphoto values (3, 3, '3.JPG');
+Insert into tbphoto values (4, 4, '4.JPG');
+Insert into tbphoto values (5, 5, '5.JPG');
+Insert into tbphoto values (6, 6, '6.JPG');
+Insert into tbphoto values (7, 7, '7.JPG');
+Insert into tbphoto values (8, 8, '8.JPG');
+Insert into tbphoto values (9, 9, '9.JPG');
+Insert into tbphoto values (10, 10, '10.JPG');
+Insert into tbphoto values (11, 11, '11.JPG');
+Insert into tbphoto values (12, 12, '12.JPG');
+Insert into tbphoto values (13, 13, '13.JPG');
+Insert into tbphoto values (14, 14, '14.JPG');
+Insert into tbphoto values (15, 15, '5.JPG');
+Insert into tbphoto values (16, 16, '6.JPG');
+Insert into tbphoto values (17, 17, '7.JPG');
+Insert into tbphoto values (18, 18, '8.JPG');
+Insert into tbphoto values (19, 19, '9.JPG');
+
 
 -- ******************************************************
 --    VIEW TABLES

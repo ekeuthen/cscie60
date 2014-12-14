@@ -28,7 +28,7 @@
 		<table>
 			<tr>
 				<th>Hike</th>
-				<th>Average Rating</th>
+				<th>Average Rating (5 = awesome)</th>
 			</tr>
 			<cfoutput query="popHikes">
 
@@ -38,7 +38,7 @@
 					    	<input type="submit" value="#TRIP#" class="link">
 					    	<input type="hidden" value="#TRIP#" name="hike">
 					    </td>
-					    <td>#AVG_RATING#</td>
+					    <td>#NumberFormat(AVG_RATING, '_.0')#</td>
 					</tr>
 				</cfform>
 			</cfoutput>

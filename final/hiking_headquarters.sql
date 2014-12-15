@@ -72,7 +72,8 @@ CREATE table tbtrip (
     difficulty      varchar2(32),
     elevationgain   number (4,0),
     fee             number (1,0),
-    dogsallowed     number (1,0)
+    dogsallowed     number (1,0),
+    avg_rating      number (2,1)
 );
 
 CREATE table tbphoto (
@@ -119,6 +120,8 @@ CREATE sequence seq_review
 --
 -- ******************************************************
 
+-- this trigger is to increment tbreview.reviewid by 1 every
+-- time a review is inserted
 CREATE or REPLACE trigger TR_new_review_IN
 /* trigger executes before an insert into the review table */
 before insert on tbreview
@@ -134,12 +137,50 @@ begin
 end TR_new_review_IN;
 /
 
-     
+-- this trigger is to calculate the averge rating for a hike
+-- each time a review for that hike is inserted in tbreview
+-- so that the average calculatation doesn't need to happen
+-- every time the popular hike or hike details page is viewed
+
+CREATE or REPLACE trigger TR_new_review_calc_avg_IN
+/* trigger executes after an insert into the review table */
+before insert on tbreview
+/* trigger executes for each row being inserted */
+for each row
+/* begin a PL/SQL block */
+
+DECLARE
+    num_reviews NUMBER;
+    sum_ratings NUMBER;
+    average_rating NUMBER; 
+
+begin
+    /* get # of existing reviews */
+    SELECT COUNT(RATING) INTO num_reviews FROM TBREVIEW WHERE TRIPID = :new.TRIPID;
+
+    /* if there are reviews, get the sum of the ratings */
+    if num_reviews > 0 then 
+        SELECT SUM(RATING) INTO sum_ratings FROM TBREVIEW WHERE TRIPID = :new.TRIPID;
+    /* if there are not reviews, set sum to 0 */
+    else
+        select 0 into sum_ratings from dual; 
+    end if;
+
+    /* add new rating to sum then divide new sum by total number of reviews (including the new one) */
+    select (sum_ratings + :new.rating) / (num_reviews + 1) into average_rating from dual;
+
+    /* update avg_rating rating in tbtrip with the newly calculated average for that trip*/
+    update tbtrip set avg_rating = average_rating where tripid = :new.tripid;
+
+end TR_new_review_calc_avg_IN;
+/
+
+
 -- ******************************************************
 --    POPULATE TABLES
 -- ******************************************************
 
-/* seed tbregion */
+-- seed tbregion
 Insert into tbregion values (1, 'Southwest and Waterville Valley');
 Insert into tbregion values (2, 'Franconia Notch');
 Insert into tbregion values (3, 'Kancamagus');
@@ -149,7 +190,7 @@ Insert into tbregion values (6, 'Pinkham Notch');
 Insert into tbregion values (7, 'Evans Notch');
 Insert into tbregion values (8, 'North Country');
 
-/* seed tbmountain */
+-- seed tbmountain
 Insert into tbmountain values (1, 'Mount Lafayette', 5249, 2);
 Insert into tbmountain values (2, 'Mount Lincoln', 5089, 2);
 Insert into tbmountain values (3, 'Little Haystack Mountain', 4780, 2);
@@ -177,28 +218,28 @@ Insert into tbmountain values (24, 'Mount Washington', 6289, 6);
 Insert into tbmountain values (25, 'Blueberry Mountain', 1781, 7);
 Insert into tbmountain values (26, 'Caribou Mountain', 2870, 7);
 
-/* seed tbtrip */
-Insert into tbtrip values (1, 'Franconia Ridge', 9, 'Moderate - Strenous', 3850, 0, 1);
-Insert into tbtrip values (2, 'Welch-Dickey Loop', 4.4, 'Moderate - Strenous', 1600, 1, 1);
-Insert into tbtrip values (3, 'Stinson Mountain Trail', 3.6, 'Moderate', 1400, 0, 1);
-Insert into tbtrip values (4, 'Percival-Morgan Loop', 5.2, 'Moderate', 1550, 0, 1);
-Insert into tbtrip values (5, 'Mount Osceola', 6.4, 'Strenuous', 2050, 1, 1);
-Insert into tbtrip values (6, 'Mount Moosilauke', 7.9, 'Strenuous', 2600, 0, 1);
-Insert into tbtrip values (7, 'Bald Mountain and Artists Bluff', 1.5, 'Moderate', 550, 0, 1);
-Insert into tbtrip values (8, 'Mount Pemigewasset Trail', 3.6, 'Moderate', 1300, 0, 1);
-Insert into tbtrip values (9, 'Bald Peak via the Mount Kinsman Trail', 4.6, 'Moderate', 1450, 0, 1);
-Insert into tbtrip values (10, 'UNH Trail to Hedgehog Mountain', 4.8, 'Moderate', 1450, 0, 1);
-Insert into tbtrip values (11, 'Black Cap', 2.2, 'Moderate', 650, 0, 1);
-Insert into tbtrip values (12, 'Mount Willard', 3.2, 'Moderate', 900, 0, 1);
-Insert into tbtrip values (13, 'Sugarloaf Trail', 3.4, 'Moderate', 900, 1, 1);
-Insert into tbtrip values (14, 'Mount Avalon', 3.7, 'Moderate', 1550, 0, 1);
-Insert into tbtrip values (15, 'Mount Crawford', 5, 'Strenuous', 2100, 0, 1);
-Insert into tbtrip values (16, 'Pine Mountain', 3.5, 'Moderate', 850, 0, 1);
-Insert into tbtrip values (17, 'Tuckerman Ravine and Mount Washington', 8.4, 'Strenuous', 4250, 0, 0);
-Insert into tbtrip values (18, 'Blueberry Mountain via Stone House Trail', 4.5, 'Moderate', 1150, 0, 1);
-Insert into tbtrip values (19, 'Caribou Mountain', 6.9, 'Strenuous', 1900, 0, 1);
+-- seed tbtrip
+Insert into tbtrip values (1, 'Franconia Ridge', 9, 'Moderate - Strenous', 3850, 0, 1, 0);
+Insert into tbtrip values (2, 'Welch-Dickey Loop', 4.4, 'Moderate - Strenous', 1600, 1, 1, 0);
+Insert into tbtrip values (3, 'Stinson Mountain Trail', 3.6, 'Moderate', 1400, 0, 1, 0);
+Insert into tbtrip values (4, 'Percival-Morgan Loop', 5.2, 'Moderate', 1550, 0, 1, 0);
+Insert into tbtrip values (5, 'Mount Osceola', 6.4, 'Strenuous', 2050, 1, 1, 0);
+Insert into tbtrip values (6, 'Mount Moosilauke', 7.9, 'Strenuous', 2600, 0, 1, 0);
+Insert into tbtrip values (7, 'Bald Mountain and Artists Bluff', 1.5, 'Moderate', 550, 0, 1, 0);
+Insert into tbtrip values (8, 'Mount Pemigewasset Trail', 3.6, 'Moderate', 1300, 0, 1, 0);
+Insert into tbtrip values (9, 'Bald Peak via the Mount Kinsman Trail', 4.6, 'Moderate', 1450, 0, 1, 0);
+Insert into tbtrip values (10, 'UNH Trail to Hedgehog Mountain', 4.8, 'Moderate', 1450, 0, 1, 0);
+Insert into tbtrip values (11, 'Black Cap', 2.2, 'Moderate', 650, 0, 1, 0);
+Insert into tbtrip values (12, 'Mount Willard', 3.2, 'Moderate', 900, 0, 1, 0);
+Insert into tbtrip values (13, 'Sugarloaf Trail', 3.4, 'Moderate', 900, 1, 1, 0);
+Insert into tbtrip values (14, 'Mount Avalon', 3.7, 'Moderate', 1550, 0, 1, 0);
+Insert into tbtrip values (15, 'Mount Crawford', 5, 'Strenuous', 2100, 0, 1, 0);
+Insert into tbtrip values (16, 'Pine Mountain', 3.5, 'Moderate', 850, 0, 1, 0);
+Insert into tbtrip values (17, 'Tuckerman Ravine and Mount Washington', 8.4, 'Strenuous', 4250, 0, 0, 0);
+Insert into tbtrip values (18, 'Blueberry Mountain via Stone House Trail', 4.5, 'Moderate', 1150, 0, 1, 0);
+Insert into tbtrip values (19, 'Caribou Mountain', 6.9, 'Strenuous', 1900, 0, 1, 0);
 
-/*seed tbtriplocation*/
+--seed tbtriplocation
 Insert into tbtriplocation values (1, 1);
 Insert into tbtriplocation values (2, 1);
 Insert into tbtriplocation values (3, 1);
@@ -226,7 +267,7 @@ Insert into tbtriplocation values (24, 17);
 Insert into tbtriplocation values (25, 18);
 Insert into tbtriplocation values (26, 19);
 
-/*seed tbphotos*/
+--seed tbphotos
 Insert into tbphoto values (1, 1, '1.JPG');
 Insert into tbphoto values (2, 2, '2.JPG');
 Insert into tbphoto values (3, 3, '3.JPG');
@@ -247,7 +288,7 @@ Insert into tbphoto values (17, 17, '7.JPG');
 Insert into tbphoto values (18, 18, '8.JPG');
 Insert into tbphoto values (19, 19, '9.JPG');
 
-/*seed tbreviews with sample reviews*/
+--seed tbreviews with sample reviews
 INSERT INTO TBREVIEW (TRIPID, RATING) VALUES (17, 5);
 INSERT INTO TBREVIEW (TRIPID, RATING) VALUES (17, 4);
 INSERT INTO TBREVIEW (TRIPID, RATING) VALUES (14, 5);

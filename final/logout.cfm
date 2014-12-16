@@ -13,4 +13,3 @@
 		<cfinclude template = "footer.cfm">
 	</body>
 </html>
-<cflogout>

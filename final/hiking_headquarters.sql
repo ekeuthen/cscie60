@@ -50,7 +50,9 @@ DROP sequence seq_review;
 
 CREATE table tblogin (
     uname           varchar2(20) not null,
-    pwd             varchar2(20) not null
+    pwd             varchar2(20) not null,
+    fname           varchar2(20) not null,
+    userview        varchar2(20) null
 );
 
 CREATE table tbregion (

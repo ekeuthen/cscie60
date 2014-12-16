@@ -8,6 +8,7 @@
 	</head>
 	<body>
 		<cfinclude template = "header.cfm">
+		<cfinclude template="forceUserLogin.cfm">
 		<cfif isDefined("form.submit")>
 			<cfquery 
 				name="addComment"

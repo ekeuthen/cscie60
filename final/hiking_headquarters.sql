@@ -34,6 +34,7 @@ DROP table tbtriplocation purge;
 DROP table tbtrip purge;
 DROP table tbmountain purge;
 DROP table tbregion purge;
+DROP table tblogin purge;
 
 
 -- ******************************************************
@@ -47,10 +48,15 @@ DROP sequence seq_review;
 --    CREATE TABLES
 -- ******************************************************
 
+CREATE table tblogin (
+    uname           varchar2(20) not null,
+    pwd             varchar2(20) not null
+);
+
 CREATE table tbregion (
-    regionid      number(2,1)     not null
+    regionid        number(2,1)     not null
         constraint pk_region primary key,
-    regionname    varchar2(32)    not null
+    regionname      varchar2(32)    not null
 );
 
 CREATE table tbmountain (

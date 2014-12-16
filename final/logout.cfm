@@ -9,6 +9,7 @@
 	<body>
 		<cfinclude template = "header.cfm">
 		<cflogout>
+		<h3>Logout complete!</h3>
 		<cfinclude template = "footer.cfm">
 	</body>
 </html>

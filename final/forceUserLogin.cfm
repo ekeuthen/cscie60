@@ -18,6 +18,7 @@
 					name="#getUser.fname#"
 					password="#Form.UserPassword#"
 					roles="#getUser.userview#">
+				<h3>Login complete.  You may now <a href="hike_reviews.cfm">add and read reviews</a>.</h3>
 				<cfelse>
 					<div class="error">
 						Sorry, the username and password combination is not recognized.  Please try again.  

@@ -28,7 +28,7 @@
 			<textarea name="UserPassword" id="UserPassword" required="Yes" maxlength="20" cols="20" rows="1">
 			</textarea>
 			<br>
-			<input type="Submit" value="Login" name="submit">
+			<input type="Submit" value="Create Account" name="submit">
 		</cfform>
 		<cfif isDefined("form.submit")>
 			<cfquery 
@@ -43,6 +43,7 @@
 					<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value='#form.fname#'>,
 					<cfqueryparam cfsqltype="CF_SQL_VARCHAR" value="gen_user">)
 			</cfquery>
+			<h3>Thank you, account created!</h3>
 		</cfif>
 		<cfinclude template = "footer.cfm">
 	</body>

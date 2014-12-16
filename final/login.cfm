@@ -10,7 +10,7 @@
 		<h3>Login required to view and add reviews.</h3>
 		<br>
 		<h3>If you do not have an account, please <a href="create_account.cfm">create an account</a>.</h3>
-		<cfset myaction="hike_reviews.cfm">
+		<cfset myaction="forceUserLogin.cfm">
 		<cfform action="#myaction#" name="login" method="post" preservedata="yes">
 			<label for="UserLogin">
 				User Name

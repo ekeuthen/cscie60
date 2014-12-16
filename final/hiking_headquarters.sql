@@ -49,7 +49,8 @@ DROP sequence seq_review;
 -- ******************************************************
 
 CREATE table tblogin (
-    uname           varchar2(20) not null,
+    uname           varchar2(20) not null
+        constraint pk_login primary key,
     pwd             varchar2(20) not null,
     fname           varchar2(20) not null,
     userview        varchar2(20) null

@@ -7,6 +7,9 @@
 	</cfif>
   	<li><a href="hike_home.cfm" class="menu">Home</a></li>
   	<li><a href="pop_hikes.cfm" class="menu">Popular Hikes</a></li>
-  	<li><a href="user_login.cfm" class="menu">Login</a></li>
-  	<li><a href="logout.cfm" class="menu">Logout</a></li>
+  	<cfif len(#GetAuthUser()#) IS NOT 0>
+	  	<li><a href="logout.cfm" class="menu">Logout</a></li>
+	  	<cfelse>
+	  	<li><a href="user_login.cfm" class="menu">Login</a></li>
+  	</cfif>
 </ul>

@@ -15,14 +15,14 @@
 			<label for="UserLogin">
 				User Name
 			</label>
-			<textarea name="UserLogin" id="UserLogin" required="Yes" maxlength="20" cols="20" rows="1">
-			</textarea>
+			<cfinput name="UserLogin" id="UserLogin" required="Yes" maxlength="20" cols="20" rows="1">
+			</cfinput>
 			<br>
 			<label for="UserPassword">
 				Password
 			</label>
-			<textarea name="UserPassword" id="UserPassword" required="Yes" maxlength="20" cols="20" rows="1">
-			</textarea>
+			<cfinput name="UserPassword" id="UserPassword" required="Yes" maxlength="20" cols="20" rows="1" type="password">
+			</cfinput>
 			<br>
 			<input type="Submit" value="Login" name="submit">
 		</cfform>

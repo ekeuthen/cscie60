@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<cfinclude template = "header.cfm">
-		<cfif isDefined("form.hike")>
+		<cfif isDefined("form.hike")> <!---ensure that user is looking for details of specific hike --->
 			<h3>
 				Hike Details: 
 				<cfoutput>#form.hike#</cfoutput>

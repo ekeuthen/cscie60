@@ -36,7 +36,7 @@
 					required="No"
 					mulitple="No">
 					<option value="13">Any</option> 
-					<!--When user selects "Any" maximum distance the system will interpret this as 13 miles, as this is the max.  -->
+					<!---When user selects "Any" maximum distance the system will interpret this as 13 miles, as this is the max.  --->
 					<option value="2">2</option>
 					<option value="3">3</option>
 					<option value="5">5</option>
@@ -88,7 +88,7 @@
 					AND T.DIFFICULTY = '#FORM.difficulty#'
 					AND T.DISTANCE <= '#FORM.distance#'
 			</cfquery>
-			<cfif len(#hikeTripList.DIFFICULTY#) IS NOT 0> <!--Validate results are returned. -->
+			<cfif len(#hikeTripList.DIFFICULTY#) IS NOT 0> <!---Validate results are returned. --->
 				<h3>The following hiking trips meet the search criteria:</h3>
 			    <table>
 			    	<tr>
@@ -112,7 +112,7 @@
 				    </cfoutput>
 			    </table>
 			</cfif>
-			<cfif len(#hikeTripList.DIFFICULTY#) IS  0> <!--Alert user if results are not returned. -->
+			<cfif len(#hikeTripList.DIFFICULTY#) IS  0> <!---Alert user if results are not returned. --->
 				<h3>There are no hiking trips that meet the search criteria.  Please try again.  </h3>
 			</cfif>
 		</cfif>

@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<cfinclude template = "header.cfm">
-		<cfinclude template="forceUserLogin.cfm">
+		<cfinclude template="forceUserLogin.cfm"> <!-- user must be logged in to view this page --->
 		<cfif isDefined("form.submit")>
 			<cfquery 
 				name="addComment"
@@ -33,7 +33,7 @@
 					Add a review:
 				</h3>
 				<cfoutput>
-					<cfform name="addReview" action="hike_reviews.cfm" method="post">
+					<cfform name="addReview" action="hike_reviews.cfm" method="post"> <!--- self submitting form--->
 						<label for="rating">Rating (5 = awesome)</label>
 						<cfselect name="rating"
 							id="rating"

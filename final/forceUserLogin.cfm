@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>
-			Logout
+			Force User Login
 		</title>
 		<link rel="stylesheet" type="text/css" href="style.css">
 	</head>
@@ -28,8 +28,6 @@
 						name="#getUser.fname#"
 						password="#Form.UserPassword#"
 						roles="#getUser.userview#">
-					<!--<cfinclude template="header.cfm">
-					<h3>Login complete!</h3>-->
 					<cfset loggedin ="true">
 				<cfelse>
 					<div class="error">
@@ -41,7 +39,7 @@
 				</cfif>
 			</cfif>
 		</cflogin>
-		<cfif #loggedin# is "true">
+		<cfif #loggedin# is "true"> <!--- redirect to home if user is already logged in --->
 			<cflocation url="hike_home.cfm">
 		</cfif>
 	</body>
